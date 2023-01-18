@@ -28,6 +28,12 @@
                         <span key="t-chat">Company</span>
                     </a>
                  </li>
+                 <li>
+                    <a href="#" class="waves-effect">
+                        <i class="bx bx-calculator"></i>
+                        <span key="t-chat">Client Pending Invoice</span>
+                    </a>
+                 </li>
                  <li class="menu-title" key="t-menu">Generated Reports</li>
                  <li>
                     <a href="{{route('client_corr.client.report')}}" class="waves-effect">

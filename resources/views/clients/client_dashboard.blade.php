@@ -5,7 +5,7 @@
 @section('content')
 
 @component('components.breadcrumb')
-@slot('li_1') Dashboards @endslot
+@slot('li_1') Client Corr @endslot
 @slot('title') Dashboard @endslot
 @endcomponent
 
@@ -46,11 +46,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <h5 class="font-size-15">2</h5>
+                                    <h5 class="font-size-15">{{$client_array["daily_client_user"]}}</h5>
                                     <p class="text-muted mb-0">Your Clients</p>
                                 </div>
                                 <div class="col-6">
-                                    <h5 class="font-size-15">3</h5>
+                                    <h5 class="font-size-15">{{$client_array["daily_client"]}}</h5>
                                     <p class="text-muted mb-0">Team Clients</p>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Weekly Approved Purchased</h4>
+                <h4 class="card-title mb-4">Weekly Approved Purchased (In-Progress)</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="text-muted">This month</p>
@@ -94,7 +94,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Weekly Client(Team)</p>
-                                <h4 class="mb-0">5</h4>
+                                <h4 class="mb-0">{{$client_array["weekly_client"]}}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center">
@@ -114,7 +114,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Monthly Client(Team)</p>
-                                <h4 class="mb-0">52</h4>
+                                <h4 class="mb-0">{{$client_array["monthly_client"]}}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center ">
@@ -134,7 +134,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Yearly Client(Team)</p>
-                                <h4 class="mb-0">162</h4>
+                                <h4 class="mb-0">{{$client_array["yearly_client"]}}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center">
@@ -150,27 +150,217 @@
             </div>
         </div>
         <!-- end row -->
-
-        <div class="card">
+        
+         <div class="card">
             <div class="card-body">
-                <div class="d-sm-flex flex-wrap">
-                    <h4 class="card-title mb-4">Onboarding Email Sent</h4>
-                    <div class="ms-auto">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Week</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Month</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">Year</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <h4 class="card-title mb-4">Latest Incomplete Onboarding Client</h4>
+                <div class="table-responsive" style="max-height:400px;overflow-y:auto">
+                    <table class="table align-middle table-nowrap mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                
+                                <th class="align-middle">Full Name</th>
+                                <th class="align-middle">Home Address</th>
+                                <th class="align-middle">Email Address</th>
+                                <th class="align-middle">Contact</th>
+                                <th class="align-middle">Company</th>
+                                <th class="align-middle">Payment Method</th>
+                                <th class="align-middle">Status</th>
+                                <th class="align-middle">View Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($client_array["clients_data"] as $client)
+                            <tr>
+                                <td>{{$client->firstname}} {{$client->lastname}}</td>
+                                 <td>{{$client->address}}</td>
+                                <td>{{$client->email}}</td>
+                                <td>{{$client->phone}}</td>
+                                @if($client->company_id)
+                                <td>{{$client->company->name}}</td>
+                                @else 
+                                <td></td>
+                                @endif
+                                <td>{{$client->payment_method}}</td>
+                                <td> 
+                                    @if($client->status == "Incomplete")
+                                    <span class="badge badge-pill badge-soft-danger font-size-11">
+                                        <a id="view" href="#" data-bs-toggle="modal" class="text-danger" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a>
+                                    @else
+                                    <span class="badge badge-pill badge-soft-success font-size-11">
+                                        <a id="view" href="#" data-bs-toggle="modal" class="text-success" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a>
+                                    @endif
+                                         </span>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light"  data-bs-toggle="modal" data-bs-target="#view-{{$client->id}}">
+                                        View Details
+                                    </button>
+                                 </td>
+                                 <!--Update Status Modal -->
+                                    <div class="modal fade bs-example-modal-sm" id="status-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="mySmallModalLabel">Change Onboarding Client Status</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="client_corr/client/update_dashboard/{{$client->id}}" method="POST">
+                                                        @csrf
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="col-md-12 col-form-label">Client Current Status:</label>
+                                                                        <div class="col-md-12">
+                                                                            <select class="form-select" name="status">
+                                                                                <option value="Incomplete" {{$client->payment_method == 'Incomplete'}}>Incomplete</option>
+                                                                                <option value="Completed" {{$client->payment_method == 'Completed'}}>Completed</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit"  name="update_client" class="btn btn-primary">Save</button>
+                                                    </div>
+                                                    </form>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- View Modal -->
+                                <div class="modal fade bs-example-modal-xl" id="view-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"  aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Onboarding Client Information</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div id="basic-example">
+                                                        <!-- Seller Details -->
+                                                        <h3>Client Details</h3>
+                                                        <section>
+                                                            <form>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="basicpill-firstname-input">First name</label>
+                                                                            <input type="text" class="form-control" id="basicpill-firstname-input" placeholder="Enter Your First Name" value="{{$client->firstname}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="basicpill-lastname-input">Last name</label>
+                                                                            <input type="text" class="form-control" id="basicpill-lastname-input" placeholder="Enter Your Last Name" value="{{$client->lastname}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
-                <div id="stacked-column-chart" data-colors='["--bs-primary", "--bs-warning", "--bs-success"]' class="apex-charts" dir="ltr"></div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="basicpill-phoneno-input">Contact No.</label>
+                                                                            <input type="text" class="form-control" id="basicpill-phoneno-input" placeholder="Enter Your Phone No." value="{{$client->phone}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="basicpill-email-input">Email Address</label>
+                                                                            <input type="email" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->email}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Company</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->company->name}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Payment Method</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->payment_method}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Remote Desktop Application(RDA)</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->rdia}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Remote Desktop Application(RDA) Id</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->rdia_id}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="mb-3">
+                                                                            <label for="basicpill-address-input">Address</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->address}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>                                                            
+                                                        </section>
+                                                        <h3>Facebook Platform Details</h3>
+                                                        <section>
+                                                            <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Email Address:</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->fb_email_address}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Password</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->fb_password}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </section>
+                                                        <h3>Store Details is in progress..</h3>
+                                                        
+                                                        
+                                                            
+                                                        
+                                                    </div>
+
+                                                </div>
+                                                <!-- end card body -->
+                                            </div>
+                                                <!-- end card -->
+                                            </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </tr>
+                                
+                            @endforeach
+                            
+                           
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <!-- end table-responsive -->
             </div>
         </div>
     </div>
@@ -182,7 +372,7 @@
     <div class="col-xl-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-5">Management Announcement</h4>
+                <h4 class="card-title mb-5">Management Announcement (In-Progress)</h4>
                 <ul class="verti-timeline list-unstyled">
                     <li class="event-list">
                         <div class="event-timeline-dot">
@@ -195,6 +385,21 @@
                             <div class="flex-grow-1">
                                 <div>
                                     Responded to need “Volunteer Activities
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="event-list">
+                        <div class="event-timeline-dot">
+                            <i class="bx bx-right-arrow-circle font-size-18"></i>
+                        </div>
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <h5 class="font-size-14">17 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div>
+                                    Everyone realizes why a new common language would be desirable... <a href="javascript: void(0);">Read more</a>
                                 </div>
                             </div>
                         </div>
@@ -253,8 +458,8 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Latest Client Invoice Transaction</h4>
-                <div class="table-responsive">
+                <h4 class="card-title mb-4">Latest Client Invoice Pending Transaction(In-Progress)</h4>
+                <div class="table-responsive" style="max-height:400px;overflow-y:auto">
                     <table class="table align-middle table-nowrap mb-0">
                         <thead class="table-light">
                             <tr>
@@ -519,9 +724,7 @@
 </div>
 <!-- end row -->
 
-<div class="row">
-    
-</div>
+
 <!-- end row -->
 
 <!-- Transaction Modal -->

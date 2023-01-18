@@ -35,11 +35,15 @@ Route::prefix('client_corr')->group(function () {
     Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('client_corr.dashboard');
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');
     Route::post('client/store', [App\Http\Controllers\ClientController::class, 'store'])->name('client_corr.client.store');
+    Route::post('client/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('client_corr.client.update');
+    Route::post('client/update_dashboard/{id}', [App\Http\Controllers\ClientCorrController::class, 'update'])->name('client_corr.client_dashboard.update');
+
     Route::get('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('client_corr.company.index');
     Route::post('company/store', [App\Http\Controllers\CompanyController::class, 'store'])->name('client_corr.company.store');
     Route::post('company/update/{id}', [App\Http\Controllers\CompanyController::class, 'update'])->name('client_corr.company.update');
     Route::post('company/destroy/{id}', [App\Http\Controllers\CompanyController::class, 'destroy'])->name('client_corr.company.destroy');
     Route::get('client/report', [App\Http\Controllers\ClientController::class, 'client_report'])->name('client_corr.client.report');
+
 });
 Route::prefix('sourcer')->group(function () {
     Route::get('/', [App\Http\Controllers\SourcerController::class, 'index'])->name('sourcer.dashboard');

@@ -76,6 +76,13 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $client = Client::where('id',$id)->first();
+        
+        if(!empty($client)){
+            $client->update($request->post());
+        }        
+
+        return redirect()->route('client_corr.client.index')->with('success', 'Client has been updated successfully.');
     }
 
     /**

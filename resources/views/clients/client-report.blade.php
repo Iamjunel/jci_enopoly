@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title') Onboarding Client @endsection
+@section('title') Client List By Date @endsection
 
 @section('css')
     <!-- DataTables -->
@@ -10,8 +10,8 @@
 @section('content')
 
     @component('components.breadcrumb')
-        @slot('li_1') {{ucfirst(Auth::user()->type)}} @endslot
-        @slot('title') Onboarding Client @endslot
+        @slot('li_1') Client Corr @endslot
+        @slot('title') Client List By Date @endslot
     @endcomponent
 
     <div class="row">
