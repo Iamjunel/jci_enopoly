@@ -47,6 +47,7 @@ Route::prefix('client_corr')->group(function () {
 });
 Route::prefix('sourcer')->group(function () {
     Route::get('/', [App\Http\Controllers\SourcerController::class, 'index'])->name('sourcer.dashboard');
+    Route::get('supplier/', [App\Http\Controllers\SupplierController::class, 'index'])->name('sourcer.supplier');
    /*
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');
     Route::get('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('client_corr.company.index');

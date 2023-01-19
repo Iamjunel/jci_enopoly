@@ -16,7 +16,7 @@
                     </li>
             
                     <li>
-                        <a href="#" class="waves-effect">
+                        <a href="{{route('sourcer.supplier')}}" class="waves-effect">
                             <i class="bx bxs-id-card"></i>
                             <span key="t-chat">Prospected Supplier</span>
                         </a>

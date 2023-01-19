@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Company;
 use App\Models\Client;
+use App\Models\Supplier;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -52,5 +53,9 @@ class User extends Authenticatable
     public function client()
     {
         return $this->hasMany(Client::class);
+    }
+    public function supplier()
+    {
+        return $this->hasMany(Supplier::class);
     }
 }
