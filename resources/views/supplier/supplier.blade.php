@@ -20,10 +20,10 @@
                 <div class="card-body">
 
                     
-                    <p class="card-title-desc"> Onboarding Clients are the clients approved by the company to be part of.
+                    <p class="card-title-desc"> Prospected Suppliers are the suppliers that need to be approved by the company to be part of.
                     </p>
                     <!-- Static Backdrop modal Button -->
-                    <button type="button" class="btn btn-primary waves-effect waves-light my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>
+                    <button type="button" class="btn btn-primary waves-effect waves-light my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                        + Add Prospected Supplier
                     </button>
                     <button type="button" class="btn btn-success waves-effect waves-light my-2" disabled >
@@ -36,30 +36,31 @@
                         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                             <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Add Onboarding Client</h5>
+                                        <h5 class="modal-title" id="staticBackdropLabel">Add Prospected Supplier</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-body">
+                                                 <form action="supplier/store" method="POST">
                                                 <div id="basic-example">
                                                     <!-- Seller Details -->
-                                                    <h3>Client Details</h3>
+                                                    <h3>Prospected Supplier Details</h3>
                                                     <section>
-                                                        <form action="client/store" method="POST">
+                                                       
                                                             @csrf
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-firstname-input">First name</label>
-                                                                        <input type="text" class="form-control" id="basicpill-firstname-input" name="firstname" placeholder="Enter Your First Name">
+                                                                        <input type="text" class="form-control" id="basicpill-firstname-input" name="firstname" placeholder="Enter First Name">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-lastname-input">Last name</label>
-                                                                        <input type="text" class="form-control" id="basicpill-lastname-input" name="lastname" placeholder="Enter Your Last Name">
+                                                                        <input type="text" class="form-control" id="basicpill-lastname-input" name="lastname" placeholder="Enter Last Name">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -68,89 +69,68 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-phoneno-input">Phone</label>
-                                                                        <input type="text" class="form-control" id="basicpill-phoneno-input" name="phone" placeholder="Enter Your Phone No.">
+                                                                        <input type="text" class="form-control" id="basicpill-phoneno-input" name="phone" placeholder="Enter Phone No.">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-email-input">Email</label>
-                                                                        <input type="email" class="form-control" id="basicpill-email-input" name="email" placeholder="Enter Your Email ID">
+                                                                        <input type="email" class="form-control" id="basicpill-email-input" name="email" placeholder="Enter Email Address">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
-                                                                        <label class="col-md-6 col-form-label">Payment Method</label>
+                                                                        <label for="basicpill-asin-input">ASIN</label>
+                                                                        <input type="text" class="form-control" id="basicpill-asin-input" name="asin" placeholder="Enter ASIN No.">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-company-input">Company Name</label>
+                                                                        <input type="text" class="form-control" id="basicpill-company-input" name="company_name" placeholder="Enter Company Name">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-link-input">Website Link</label>
+                                                                        <input type="url" class="form-control" id="basicpill-link-input" name="website_link" placeholder="https://example.com">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="col-md-6 ">Type</label>
                                                                         <div class="col-md-12">
-                                                                            <select class="form-select" name="payment_method">
-                                                                                <option value="VISA">VISA</option>
-                                                                                <option value="ACH">ACH</option>
-                                                                                <option value="AMEX">AMEX</option>
-                                                                                <option value="WIRE">WIRE</option>
+                                                                            <select class="form-select" name="types">
+                                                                                <option value="Distributor">Distributor</option>
+                                                                                <option value="Dealer">Dealer</option>
+                                                                                <option value="Whole Saler">Whole Saler</option>
+                                                                                <option value="Retailer">Retailer</option>
+                                                                                <option value="Brand">Brand</option>
                                                 
                                                                             </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Remote Desktop Application(RDA)</label>
-                                                                            <input type="text" class="form-control" name="rdia" id="basicpill-email-input" placeholder="Enter Remote Desktop Application" >
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Remote Desktop Application(RDA) Id</label>
-                                                                            <input type="text" class="form-control" name="rdia_id" id="basicpill-email-input" placeholder="Enter Remote Desktop Application Id" >
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="mb-3">
-                                                                            <label for="basicpill-address-input">Address</label>
-                                                                            <input type="text" class="form-control" name="address" id="basicpill-email-input" placeholder="Enter Your Home Address" >
-                                                                        </div>
-                                                                    </div>
-                                                                </div>                                                            
+                                                                                                               
                                                         </section>
-                                                        <h3>Facebook Platform Details</h3>
-                                                        <section>
-                                                            <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Email Address:</label>
-                                                                            <input type="text" class="form-control" name="fb_email_address" id="basicpill-email-input" placeholder="Enter Your Email ID">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Password</label>
-                                                                            <input type="text" class="form-control" name="fb_password" id="basicpill-email-input" placeholder="Enter Your Email ID">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                        </section>
-                                                        
-                                                     <h3>Store Details is in progress..</h3>
-
-                                                
                                                 </div>
 
                                             </div>
                                             <!-- end card body -->
                                         </div>
+                                        
                                         <!-- end card -->
+                                        </div>
                                     </div>
-                                </div>
                                     <div class="modal-footer">
                                         <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" name="add_client" class="btn btn-primary">Save</button>
+                                        <button type="submit" name="add_supplier" class="btn btn-primary">Save</button>
                                     </div>
                             </div>
                         </form>
@@ -165,8 +145,11 @@
                                 <th>Company Name</th>
                                 <th>Website Link</th>
                                 <th>Email Address</th>
+                                <th>Asin</th>
                                 <th>Contact</th>
                                 <th>Status</th>
+                                <th>Date Added</th>
+                                <th>Added by</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -177,7 +160,7 @@
                             @foreach ($supplier as $client)
                             <tr>
                                 <td>{{$client->firstname}} {{$client->lastname}}</td>
-                                 <td>{{$client->asin}}</td>
+                                <td>{{$client->asin}}</td>
                                 <td>{{$client->company_name}}</td>
                                 <td><a href="{{$client->website_link}}" target="blank_">{{$client->website_link}}</a></td>
                                 <td>{{$client->email}}</td>
@@ -186,16 +169,18 @@
                                 <td> 
                                     @if($client->status == "Incomplete")
                                     <span class="badge badge-pill badge-soft-danger font-size-11">
-                                        <a id="view" href="#" data-bs-toggle="modal" class="text-danger" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a> </span>
                                     @else 
                                     <span class="badge badge-pill badge-soft-success font-size-11">
-                                        <a id="view" href="#" data-bs-toggle="modal" class="text-success" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a> </span>
                                     @endif    
+                                    {{ucfirst($client->status)}}</span>
                                         
                                 </td>
-                                <td> <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#view1-{{$client->id}}"><i class="bx bx-xs bx-user mr-2"></i> </a> 
-                                    <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#edit1-{{$client->id}}" ><i class="bx bx-xs bx-pencil mr-1"></i></a>
-                                 </td>
+                                 <td>{{date('M d Y',strtotime($client->created_at))}}</td>
+                                <td>{{$client->user->name}}</td>
+                                <td> 
+                                    <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#edit-{{$client->id}}" ><i class="bx bx-xs bx-pencil mr-1"></i></a>
+                                    <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#delete-{{$client->id}}"><i class="bx bx-xs text-danger bx-trash mr-1"></i></a>
+                                </td>
                                     <!--Update Status Modal -->
                                     <div class="modal fade bs-example-modal-sm" id="status-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog modal-sm">
@@ -204,7 +189,7 @@
                                                         <h5 class="modal-title" id="mySmallModalLabel">Change Supplier Status</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <form action="client/update/{{$client->id}}" method="POST">
+                                                    <form action="supplier/update/{{$client->id}}" method="POST">
                                                         @csrf
                                                     <div class="modal-body">
                                                         <div class="row">
@@ -213,8 +198,8 @@
                                                                         <label class="col-md-12 col-form-label">Client Current Status:</label>
                                                                         <div class="col-md-12">
                                                                             <select class="form-select" name="status">
-                                                                                <option value="Incomplete" {{$client->payment_method == 'Incomplete'}}>Incomplete</option>
-                                                                                <option value="Completed" {{$client->payment_method == 'Completed'}}>Completed</option>
+                                                                                <option value="Incomplete" {{$client->status == 'Incomplete'}}>Incomplete</option>
+                                                                                <option value="Completed" {{$client->status == 'Completed'}}>Completed</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -229,148 +214,38 @@
                                                 </div><!-- /.modal-content -->
                                             </div><!-- /.modal-dialog -->
                                     </div>
-                                    <!-- View Modal -->
-                                <div class="modal fade bs-example-modal-xl" id="view-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"  aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Onboarding Client Information</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div id="basic-example">
-                                                        <!-- Seller Details -->
-                                                        <h3>Client Details</h3>
-                                                        <section>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label for="basicpill-firstname-input">First name</label>
-                                                                            <input type="text" class="form-control" id="basicpill-firstname-input" placeholder="Enter Your First Name" value="{{$client->firstname}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label for="basicpill-lastname-input">Last name</label>
-                                                                            <input type="text" class="form-control" id="basicpill-lastname-input" placeholder="Enter Your Last Name" value="{{$client->lastname}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label for="basicpill-phoneno-input">Contact No.</label>
-                                                                            <input type="text" class="form-control" id="basicpill-phoneno-input" placeholder="Enter Your Phone No." value="{{$client->phone}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label for="basicpill-email-input">Email Address</label>
-                                                                            <input type="email" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->email}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                   
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Payment Method</label>
-                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->payment_method}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Remote Desktop Application(RDA)</label>
-                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->rdia}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Remote Desktop Application(RDA) Id</label>
-                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->rdia_id}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="mb-3">
-                                                                            <label for="basicpill-address-input">Address</label>
-                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->address}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>                                                            
-                                                        </section>
-                                                        <h3>Facebook Platform Details</h3>
-                                                        <section>
-                                                            <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Email Address:</label>
-                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->fb_email_address}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Password</label>
-                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->fb_password}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                        </section>
-                                                        <h3>Store Details is in progress..</h3>
-                                                        
-                                                        
-                                                            
-                                                        
-                                                    </div>
-
-                                                </div>
-                                                <!-- end card body -->
-                                            </div>
-                                                <!-- end card -->
-                                            </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
+                                
                                    <!-- Edit Modal -->
                                 <div class="modal fade bs-example-modal-xl" id="edit-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"  aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Update Onboarding Client</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div id="basic-example">
-                                                        <!-- Seller Details -->
-                                                        <h3>Client Details</h3>
-                                                        <section>
-                                                        <form action="client/update/{{$client->id}}" method="POST">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                            <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Add Prospected Supplier</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                 <form action="supplier/update/{{$client->id}}" method="POST">
+                                                <div id="basic-example">
+                                                    <!-- Seller Details -->
+                                                    <h3>Prospected Supplier Details</h3>
+                                                    <section>
+                                                       
                                                             @csrf
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-firstname-input">First name</label>
-                                                                        <input type="text" class="form-control" id="basicpill-firstname-input" name="firstname" value="{{$client->firstname}}" placeholder="Enter Your First Name">
+                                                                        <input type="text" class="form-control" id="basicpill-firstname-input" name="firstname" value="{{$client->firstname}}" placeholder="Enter First Name">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-lastname-input">Last name</label>
-                                                                        <input type="text" class="form-control" id="basicpill-lastname-input" name="lastname" value="{{$client->lastname}}" placeholder="Enter Your Last Name">
+                                                                        <input type="text" class="form-control" id="basicpill-lastname-input" name="lastname" value="{{$client->lastname}}" placeholder="Enter Last Name">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -379,109 +254,97 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-phoneno-input">Phone</label>
-                                                                        <input type="text" class="form-control" id="basicpill-phoneno-input" name="phone" value="{{$client->phone}}" placeholder="Enter Your Phone No.">
+                                                                        <input type="text" class="form-control" id="basicpill-phoneno-input" name="phone" value="{{$client->phone}}" placeholder="Enter Phone No.">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-email-input">Email</label>
-                                                                        <input type="email" class="form-control" id="basicpill-email-input" name="email" value="{{$client->email}}" placeholder="Enter Your Email ID">
+                                                                        <input type="email" class="form-control" id="basicpill-email-input" name="email" value="{{$client->email}}" placeholder="Enter Email Address">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
-                                                                        <label class="col-md-6 col-form-label">Payment Method</label>
+                                                                        <label for="basicpill-asin-input">ASIN</label>
+                                                                        <input type="text" class="form-control" id="basicpill-asin-input" name="asin" value="{{$client->asin}}" placeholder="Enter ASIN No.">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-company-input">Company Name</label>
+                                                                        <input type="text" class="form-control" id="basicpill-company-input" name="company_name" value="{{$client->company_name}}" placeholder="Enter Company Name">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-link-input">Website Link</label>
+                                                                        <input type="url" class="form-control" id="basicpill-link-input" name="website_link" value="{{$client->website_link}}" placeholder="http://example.com">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="col-md-6 ">Type</label>
                                                                         <div class="col-md-12">
-                                                                            <select class="form-select" name="payment_method">
-                                                                                <option value="VISA" {{($client->payment_method == 'VISA')? 'selected' : ''}}>VISA</option>
-                                                                                <option value="ACH" {{($client->payment_method == 'ACH')? 'selected' : ''}}>ACH</option>
-                                                                                <option value="AMEX" {{($client->payment_method == 'AMEX')? 'selected' : ''}}>AMEX</option>
-                                                                                <option value="WIRE" {{($client->payment_method == 'WIRE')? 'selected' : ''}}>WIRE</option>
+                                                                            <select class="form-select" name="types">
+                                                                                <option  value="Distributor" {{($client->types == "Distributor")? 'selected' : ''}}>Distributor</option>
+                                                                                <option value="Dealer" {{($client->types == "Dealer")? 'selected' : ''}}>Dealer</option>
+                                                                                <option value="Whole Saler" {{($client->types == "Whole Saler")? 'selected' : ''}}>Whole Saler</option>
+                                                                                <option value="Retailer" {{($client->types == "Retailer")? 'selected' : ''}}>Retailer</option>
+                                                                                <option value="Brand" {{($client->types == "Brand")? 'selected' : ''}}>Brand</option>
                                                 
                                                                             </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Remote Desktop Application(RDA)</label>
-                                                                            <input type="text" class="form-control" name="rdia" id="basicpill-email-input" value="{{$client->rdia}}" placeholder="Enter Remote Desktop Application" >
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Remote Desktop Application(RDA) Id</label>
-                                                                            <input type="text" class="form-control" name="rdia_id" id="basicpill-email-input" value="{{$client->rdia_id}}"  placeholder="Enter Remote Desktop Application Id" >
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="mb-3">
-                                                                            <label for="basicpill-address-input">Address</label>
-                                                                            <input type="text" class="form-control" name="address" id="basicpill-email-input" value="{{$client->address}}" placeholder="Enter Your Home Address" >
-                                                                        </div>
-                                                                    </div>
-                                                                </div>                                                            
+                                                                                                               
                                                         </section>
-                                                        <h3>Facebook Platform Details</h3>
-                                                        <section>
-                                                            <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Email Address:</label>
-                                                                            <input type="text" class="form-control" name="fb_email_address" id="basicpill-email-input" value="{{$client->fb_email_address}}" placeholder="Enter Your Fb Email ID">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Password</label>
-                                                                            <input type="text" class="form-control" name="fb_password" id="basicpill-email-input" value="{{$client->fb_password}}" placeholder="Enter Your Fb password">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                        </section>
-                                                        <h3>Client Status</h3>
-                                                        <section>
-                                                            <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                    <div class="mb-3">
-                                                                        <label class="col-md-6 col-form-label">Client Current Status:</label>
-                                                                        <div class="col-md-12">
-                                                                            <select class="form-select" name="status">
-                                                                                <option value="Incomplete" {{($client->status == 'Incomplete')?'selected' : ''}}>Incomplete</option>
-                                                                                <option value="Completed" {{($client->status == 'Completed')?'selected':''}}>Completed</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                </div>
-                                                        </section>
-                                                        
-                                                        
-                                                     <h3>Store Details is in progress..</h3>
-
-                                                    </div>
-
                                                 </div>
-                                                <!-- end card body -->
+
                                             </div>
-                                                <!-- end card -->
-                                            </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit"  name="update_client" class="btn btn-primary">Save</button>
-                                            </div>
+                                            <!-- end card body -->
+                                        </div>
+                                        
+                                        <!-- end card -->
                                         </div>
                                     </div>
-                                    </form>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="add_supplier" class="btn btn-primary">Save</button>
+                                    </div>
+                            </div>
+                        </form>
+                        </div>
                                 </div>
+
+                                 <!--  Delete Modal-->
+                                <div class="modal fade  bs-example-modal-sm" id="delete-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog  modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="mySmallModalLabel">Delete Prospected Supplier</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete prospected supplier {{$client->firstname}} {{$client->lastname}}  ?</p>
+                                                
+                                            </div>
+                                            <form action="supplier/destroy/{{$client->id}}" method="POST">
+                                                @csrf
+                                                
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-primary">Yes I'm sure</button>
+                                            </div>
+                                            </form>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
                                 
                                
                                 

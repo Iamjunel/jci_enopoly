@@ -23,7 +23,7 @@ class SourcerController extends Controller
         $weekly_supplier_count       = $supplier->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
         $monthly_supplier_count      = $supplier->whereMonth('created_at', Carbon::now()->month)->count();
         $yearly_supplier_count       = $supplier->whereYear('created_at', Carbon::now()->year)->count();
-        $suppliers_data              = $supplier->with('user')->where('status','=','Incomplete')->orderBy('created_at', 'desc')->get();
+        $suppliers_data              = $supplier->with('user')->where('status','=','Incomplete')->where('created_at', '>=', date('Y-m-d').' 00:00:00')->orderBy('created_at', 'desc')->get();
 
         $supplier_array = array();
         $supplier_array["suppliers_data"] = $suppliers_data;

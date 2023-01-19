@@ -142,13 +142,13 @@ if (columnChartColors) {
   var data = {
     categories: ['Jun, 2019', 'Jul, 2019', 'Aug, 2019', 'Sep, 2019', 'Oct, 2019', 'Nov, 2019', 'Dec, 2019'],
     series: [{
-      name: 'Budget',
+      name: 'Prospected',
       data: [5000, 3000, 5000, 7000, 6000, 4000, 1000]
     }, {
-      name: 'Income',
+      name: 'Approved',
       data: [8000, 1000, 7000, 2000, 6000, 3000, 5000]
     }, {
-      name: 'Expenses',
+      name: 'Cancelled',
       data: [4000, 4000, 6000, 3000, 4000, 5000, 7000]
     }]
   };

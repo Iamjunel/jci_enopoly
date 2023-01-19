@@ -48,13 +48,11 @@ Route::prefix('client_corr')->group(function () {
 Route::prefix('sourcer')->group(function () {
     Route::get('/', [App\Http\Controllers\SourcerController::class, 'index'])->name('sourcer.dashboard');
     Route::get('supplier', [App\Http\Controllers\SupplierController::class, 'index'])->name('sourcer.supplier');
-   /*
-    Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');
-    Route::get('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('client_corr.company.index');
-    Route::post('company/store', [App\Http\Controllers\CompanyController::class, 'store'])->name('client_corr.company.store');
-    Route::post('company/update/{id}', [App\Http\Controllers\CompanyController::class, 'update'])->name('client_corr.company.update');
-    Route::post('company/destroy/{id}', [App\Http\Controllers\CompanyController::class, 'destroy'])->name('client_corr.company.destroy');
-    Route::get('client/report', [App\Http\Controllers\ClientController::class, 'client_report'])->name('client_corr.client.report'); */
+    Route::post('supplier/store', [App\Http\Controllers\SupplierController::class, 'store'])->name('sourcer.supplier.store');
+    Route::post('supplier/update/{id}', [App\Http\Controllers\SupplierController::class, 'update'])->name('sourcer.supplier.update');
+    Route::post('supplier/destroy/{id}', [App\Http\Controllers\SupplierController::class, 'destroy'])->name('sourcer.supplier.destroy');
+    Route::get('supplier/report', [App\Http\Controllers\SupplierController::class, 'supplier_report'])->name('sourcer.supplier.report');
+   
 });
 Route::prefix('caller')->group(function () {
     Route::get('/', [App\Http\Controllers\CallerController::class, 'index'])->name('caller.dashboard');

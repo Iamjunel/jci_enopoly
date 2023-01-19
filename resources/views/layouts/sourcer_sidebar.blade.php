@@ -23,7 +23,7 @@
                     </li>
                      <li class="menu-title" key="t-menu">Generated Reports</li>
                     <li>
-                        <a href="#" class="waves-effect">
+                        <a href="{{route('sourcer.supplier.report')}}" class="waves-effect">
                             <i class="bx bxs-report"></i>
                             <span key="t-chat">Prospected Supplier By Date</span>
                         </a>

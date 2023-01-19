@@ -50,7 +50,7 @@
                                     <p class="text-muted mb-0">Your Clients</p>
                                 </div>
                                 <div class="col-6">
-                                    <h5 class="font-size-15">{{$client_array["daily_client"]}}</h5>
+                                    <h5 class="font-size-15">{{$client_array["daily_client_user"] - $client_array["daily_client"]}}</h5>
                                     <p class="text-muted mb-0">Team Clients</p>
                                 </div>
                             </div>

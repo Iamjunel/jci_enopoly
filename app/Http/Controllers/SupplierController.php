@@ -39,6 +39,9 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         //
+        Supplier::create($request->post());
+
+        return redirect()->back()->with('success', 'Client has been created successfully.');
     }
 
     /**
@@ -73,6 +76,14 @@ class SupplierController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $supplier = Supplier::where('id',$id)->first();
+        
+        if(!empty($supplier)){
+            $supplier->update($request->post());
+        }        
+
+        return redirect()->back()->with('success', 'Supplier has been updated successfully.');
     }
 
     /**
@@ -83,6 +94,17 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
+            $supplier = Supplier::find($id);
+            $supplier->delete();
+
+            return redirect()->back()->with('success', 'Supplier has been deleted successfully.');
+        
+    }
+
+    public function supplier_report()
+    {
         //
+        $supplier = Supplier::with('user')->get();
+        return view('supplier.supplier-report', compact('supplier'));
     }
 }
