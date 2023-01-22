@@ -178,6 +178,7 @@
                                 <th>Company</th>
                                 <th>Payment Method</th>
                                 <th>Status</th>
+                                <th>Added by</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -207,6 +208,7 @@
                                     @endif    
                                         
                                 </td>
+                                <td>{{$client->user->name}}</td>
                                 <td> <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#view-{{$client->id}}"><i class="bx bx-xs bx-user mr-2"></i> </a> 
                                     <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#edit-{{$client->id}}"><i class="bx bx-xs bx-pencil mr-1"></i></a>
                                  </td>
@@ -323,6 +325,22 @@
                                                                             <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->address}}" disabled>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Added By @ Date</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->user->name}} @ {{date('M d Y',strtotime($client->created_at))}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if($client->approved_at)
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Approved by @ Date</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->user->name}} @ {{date('M d Y',strtotime($client->approved_at))}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
                                                                 </div>                                                            
                                                         </section>
                                                         <h3>Facebook Platform Details</h3>

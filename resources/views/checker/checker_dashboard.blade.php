@@ -10,7 +10,7 @@
 @section('content')
 
 @component('components.breadcrumb')
-@slot('li_1') Sourcer @endslot
+@slot('li_1') Checker @endslot
 @slot('title') Dashboard @endslot
 @endcomponent
 
@@ -37,7 +37,7 @@
                             <img src="{{ isset(Auth::user()->avatar) ? asset(Auth::user()->avatar) : asset('/assets/images/users/avatar-1.jpg') }}" alt="" class="img-thumbnail rounded-circle">
                         </div>
                         <h5 class="font-size-15 text-truncate">{{ Str::ucfirst(Auth::user()->name) }}</h5>
-                        <p class="text-muted mb-0 text-truncate">{{ Str::ucfirst(Auth::user()->type) }}</p>
+                        <p class="text-muted mb-0 text-truncate">Checker</p>
                     </div>
 
                     <div class="col-sm-8">
@@ -51,16 +51,16 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <h5 class="font-size-15">{{$supplier_array["daily_supplier_user"]}}</h5>
-                                    <p class="text-muted mb-0">Your Suppliers</p>
+                                    <h5 class="font-size-15">{{$supplier_array["daily_supplier_valid"]}}</h5>
+                                    <p class="text-muted mb-0">Team Valid Suppliers</p>
                                 </div>
                                 <div class="col-6">
-                                    <h5 class="font-size-15">{{$supplier_array["daily_supplier_user"] - $supplier_array["daily_supplier"]}}</h5>
-                                    <p class="text-muted mb-0">Team Suppliers</p>
+                                    <h5 class="font-size-15">{{$supplier_array["daily_supplier_invalid"]}}</h5>
+                                    <p class="text-muted mb-0">Team Invalid Suppliers</p>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="sourcer/supplier" class="btn btn-primary waves-effect waves-light btn-sm">View All <i class="mdi mdi-arrow-right ms-1"></i></a>
+                                <a href="checker/supplier/checked" class="btn btn-primary waves-effect waves-light btn-sm">View All <i class="mdi mdi-arrow-right ms-1"></i></a>
                             </div>
                         </div>
                     </div>
@@ -233,7 +233,7 @@
 <div class="row col">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4"> Latest Daily Uncheck Supplier</h4>
+                <h4 class="card-title mb-4"> Latest Daily Valid | Invalid Supplier</h4>
                 <div class="table-responsive" style="max-height:400px;overflow-y:auto">
                     <table class="table align-middle table-nowrap mb-0">
                         <thead class="table-light">
@@ -263,17 +263,17 @@
             
                                 <td>{{$client->phone}}</td>
                                 <td> 
-                                    @if($client->status == "Incomplete")
-                                    <span class="badge badge-pill badge-soft-danger font-size-11">
-                                        <a id="view" href="#" data-bs-toggle="modal" class="text-danger" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a>
+                                    @if($client->status == "Valid")
+                                    <span class="badge badge-pill badge-soft-info font-size-11">
+                                        <a id="view" href="#" data-bs-toggle="modal" class="text-info" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a>
                                     @else
-                                    <span class="badge badge-pill badge-soft-success font-size-11">
-                                        <a id="view" href="#" data-bs-toggle="modal" class="text-success" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a>
+                                    <span class="badge badge-pill badge-soft-warning font-size-11">
+                                        <a id="view" href="#" data-bs-toggle="modal" class="text-warning" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a>
                                     @endif
                                          </span>
                                 </td>
-                                 <td>{{date('M d Y',strtotime($client->created_at))}}</td>
-                                 <td>{{$client->user->name}}</td>
+                                 <td>{{date('M d Y',strtotime($client->checker_updated_at))}}</td>
+                                 <td>{{$client->checker->name}}</td>
                                 
                                 
                             </tr>
@@ -298,91 +298,7 @@
 
 <!-- end row -->
 
-<!-- Transaction Modal -->
-<div class="modal fade transaction-detailModal" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="transaction-detailModalLabel">Order Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-2">Product id: <span class="text-primary">#SK2540</span></p>
-                <p class="mb-4">Billing Name: <span class="text-primary">Neal Matthews</span></p>
 
-                <div class="table-responsive">
-                    <table class="table align-middle table-nowrap">
-                        <thead>
-                            <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Product Name</th>
-                                <th scope="col">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">
-                                    <div>
-                                        <img src="{{ URL::asset('/assets/images/product/img-7.png') }}" alt="" class="avatar-sm">
-                                    </div>
-                                </th>
-                                <td>
-                                    <div>
-                                        <h5 class="text-truncate font-size-14">Wireless Headphone (Black)</h5>
-                                        <p class="text-muted mb-0">$ 225 x 1</p>
-                                    </div>
-                                </td>
-                                <td>$ 255</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div>
-                                        <img src="{{ URL::asset('/assets/images/product/img-4.png') }}" alt="" class="avatar-sm">
-                                    </div>
-                                </th>
-                                <td>
-                                    <div>
-                                        <h5 class="text-truncate font-size-14">Phone patterned cases</h5>
-                                        <p class="text-muted mb-0">$ 145 x 1</p>
-                                    </div>
-                                </td>
-                                <td>$ 145</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <h6 class="m-0 text-right">Sub Total:</h6>
-                                </td>
-                                <td>
-                                    $ 400
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <h6 class="m-0 text-right">Shipping:</h6>
-                                </td>
-                                <td>
-                                    Free
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <h6 class="m-0 text-right">Total:</h6>
-                                </td>
-                                <td>
-                                    $ 400
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end modal -->
 
 <!-- subscribeModal -->
 <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
@@ -477,11 +393,11 @@ if (columnChartColors) {
                 data: [50, 30, 50, 70, 60, 40, 10]
             },
             {
-                name: 'Approved',
+                name: 'Valid',
                 data: [80, 10, 70, 20, 60, 30, 50]
             },
             {
-                name: 'Denied',
+                name: 'Invalid',
                 data: [40, 40, 60, 30, 40, 50, 70]
             }
         ]

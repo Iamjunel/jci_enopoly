@@ -24,8 +24,8 @@
             @include('layouts.sourcer_sidebar')
         @elseif(Auth::user()->type == 'caller')
             @include('layouts.caller_sidebar')
-        @else 
-          @include('layouts.sidebar')
+        @elseif(Auth::user()->type == 'checker')
+            @include('layouts.checker_sidebar')
         @endif
         <!-- ============================================================== -->
         <!-- Start right Content here -->

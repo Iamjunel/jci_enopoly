@@ -14,7 +14,7 @@ class SupplierController extends Controller
     public function index()
     {
         //
-        $supplier = Supplier::with('user')->get();;
+        $supplier = Supplier::with('user')->get();
         return view('supplier.supplier',compact('supplier'));
 
         
@@ -82,8 +82,12 @@ class SupplierController extends Controller
         if(!empty($supplier)){
             $supplier->update($request->post());
         }        
-
-        return redirect()->back()->with('success', 'Supplier has been updated successfully.');
+        if(isset($request->status) && ($request->status == 'Valid' || $request->status == 'Invalid')){
+             return redirect()->back()->with('success', 'Supplier has been moved successfully.');
+        }else{
+             return redirect()->back()->with('success', 'Supplier has been updated successfully.');
+        } 
+       
     }
 
     /**
@@ -104,7 +108,32 @@ class SupplierController extends Controller
     public function supplier_report()
     {
         //
-        $supplier = Supplier::with('user')->get();
-        return view('supplier.supplier-report', compact('supplier'));
+         $date_from = date('Y-m-d', strtotime("Monday This Week"));
+         $date_to = date('Y-m-d', strtotime("Sunday This Week"));
+         $status = 'Uncheck';
+
+        $supplier = Supplier::with('user')->whereDate('created_at','>=',$date_from)->whereDate('created_at','<=',$date_to)->get();
+        return view('supplier.supplier-report', compact('supplier','date_from','date_to'));
+    }
+
+    public function supplier_report_with_date(Request $request)
+    {
+        //
+        $date_from = "";
+        $date_to = "";
+        $status ="";
+
+        if($request->date_from == null && $request->$date_to == null){
+            $date_from = date('Y-m-d', strtotime("Monday This Week"));
+            $date_to = date('Y-m-d', strtotime("Sunday This Week"));
+            $status = "Incomplete";
+        }else{
+            $date_from = $request->date_from;
+            $date_to = $request->date_to;
+            $status = $request->status;
+        }
+
+        $supplier = Supplier::with('user')->whereDate('created_at','>=',$date_from)->whereDate('created_at','<=',$date_to)->get();
+        return view('supplier.supplier-report', compact('supplier','date_from','date_to'));
     }
 }

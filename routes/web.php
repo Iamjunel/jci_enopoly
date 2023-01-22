@@ -31,7 +31,7 @@ Route::prefix('admin')->group(function () {
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('admin.client.index');
     Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('admin.root');
 });
-Route::prefix('client_corr')->group(function () {    
+Route::group(['middleware' => ['client_corr'], 'prefix' => 'client_corr'], function (){    
     Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('client_corr.dashboard');
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');
     Route::post('client/store', [App\Http\Controllers\ClientController::class, 'store'])->name('client_corr.client.store');
@@ -43,18 +43,30 @@ Route::prefix('client_corr')->group(function () {
     Route::post('company/update/{id}', [App\Http\Controllers\CompanyController::class, 'update'])->name('client_corr.company.update');
     Route::post('company/destroy/{id}', [App\Http\Controllers\CompanyController::class, 'destroy'])->name('client_corr.company.destroy');
     Route::get('client/report', [App\Http\Controllers\ClientController::class, 'client_report'])->name('client_corr.client.report');
+    Route::post('client/report-with-date', [App\Http\Controllers\ClientController::class, 'client_report_with_date'])->name('client_corr.client.report-with-date');
 
 });
-Route::prefix('sourcer')->group(function () {
+Route::group(['middleware' => ['sourcer'], 'prefix' => 'sourcer'], function (){
     Route::get('/', [App\Http\Controllers\SourcerController::class, 'index'])->name('sourcer.dashboard');
     Route::get('supplier', [App\Http\Controllers\SupplierController::class, 'index'])->name('sourcer.supplier');
     Route::post('supplier/store', [App\Http\Controllers\SupplierController::class, 'store'])->name('sourcer.supplier.store');
     Route::post('supplier/update/{id}', [App\Http\Controllers\SupplierController::class, 'update'])->name('sourcer.supplier.update');
     Route::post('supplier/destroy/{id}', [App\Http\Controllers\SupplierController::class, 'destroy'])->name('sourcer.supplier.destroy');
     Route::get('supplier/report', [App\Http\Controllers\SupplierController::class, 'supplier_report'])->name('sourcer.supplier.report');
+    Route::post('supplier/report-with-date', [App\Http\Controllers\SupplierController::class, 'supplier_report_with_date'])->name('sourcer.supplier.report-with-date');
    
 });
-Route::prefix('caller')->group(function () {
+Route::group(['middleware' => ['checker'], 'prefix' => 'checker'], function (){
+    Route::get('/', [App\Http\Controllers\CheckerController::class, 'index'])->name('checker.dashboard');
+    Route::get('supplier', [App\Http\Controllers\CheckerController::class, 'checker_index'])->name('checker.supplier');
+    Route::get('supplier/checked', [App\Http\Controllers\CheckerController::class, 'checker_checked'])->name('checker.supplier_checked');
+    Route::post('supplier/update/{id}', [App\Http\Controllers\SupplierController::class, 'update'])->name('checker.supplier.update');
+    Route::post('supplier/destroy/{id}', [App\Http\Controllers\SupplierController::class, 'destroy'])->name('checker.supplier.destroy');
+    Route::get('supplier/report', [App\Http\Controllers\CheckerController::class, 'supplier_report'])->name('checker.supplier.report');
+    Route::post('supplier/report-with-date', [App\Http\Controllers\CheckerController::class, 'supplier_report_with_date'])->name('checker.supplier.report-with-date');
+   
+});
+Route::group(['middleware' => ['caller'], 'prefix' => 'caller'], function (){
     Route::get('/', [App\Http\Controllers\CallerController::class, 'index'])->name('caller.dashboard');
     /*
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');

@@ -99,8 +99,41 @@ class ClientController extends Controller
     public function client_report()
     {
         //
-        $clients = Client::with('company','user')->get();
+
+       // if($date_from == null && $date_to == null){
+            $date_from = date('Y-m-d', strtotime("Monday This Week"));
+            $date_to = date('Y-m-d', strtotime("Sunday This Week"));
+            $status = 'Incomplete';
+        //}
+       // var_dump($date_from);
+        $clients = Client::with('company','user')->whereDate('created_at','>=',$date_from)->whereDate('created_at','<=',$date_to)->where('status','=','Incomplete')->get();
+
+
         $companies = Company::all();
-        return view('clients.client-report', compact('clients', 'companies'));
+        return view('clients.client-report', compact('clients', 'companies','date_from','date_to','status'));
+    }
+    public function client_report_with_date(Request $request)
+    {
+        //
+        $date_from = "";
+        $date_to = "";
+        $status ="";
+        if($request->date_from == null && $request->$date_to == null){
+            $date_from = date('Y-m-d', strtotime("Monday This Week"));
+            $date_to = date('Y-m-d', strtotime("Sunday This Week"));
+            $status = "Incomplete";
+        }else{
+            $date_from = $request->date_from;
+            $date_to = $request->date_to;
+            $status = $request->status;
+        }
+
+        //var_dump($date_from);die;
+       
+        $clients = Client::with('company','user')->whereDate('created_at','>=',$date_from)->whereDate('created_at','<=',$date_to)->where('status','=',$status)->get();
+
+
+        $companies = Company::all();
+        return view('clients.client-report', compact('clients', 'companies','date_from','date_to','status'));
     }
 }

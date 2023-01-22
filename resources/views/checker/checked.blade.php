@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title') Uncheck Supplier @endsection
+@section('title') Valid/Invalid Supplier @endsection
 
 @section('css')
     <!-- DataTables -->
@@ -10,8 +10,8 @@
 @section('content')
 
     @component('components.breadcrumb')
-        @slot('li_1') Sourcer @endslot
-        @slot('title') Uncheck Supplier @endslot
+        @slot('li_1') Checker @endslot
+        @slot('title') Valid | Invalid Supplier @endslot
     @endcomponent
 
     <div class="row">
@@ -20,16 +20,9 @@
                 <div class="card-body">
 
                     
-                    <p class="card-title-desc"> Uncheck Suppliers are the suppliers that need to be approved by the company to be part of.
+                    <p class="card-title-desc"> Valid | Invalid Suppliers are the suppliers that need to be approved by the caller to be part of.
                     </p>
-                    <!-- Static Backdrop modal Button -->
-                    <button type="button" class="btn btn-primary waves-effect waves-light my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                       + Add Uncheck Supplier
-                    </button>
-                    <button type="button" class="btn btn-success waves-effect waves-light my-2" disabled >
-                       + Import Excel/CSV File
-                    </button>
-
+                    
 
                     <!-- Add Onboarding Client Modal -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -145,11 +138,12 @@
                                 <th>Company Name</th>
                                 <th>Website Link</th>
                                 <th>Email Address</th>
+                                <th>Asin</th>
                                 <th>Contact</th>
                                 <th>Status</th>
                                 <th>Date Added</th>
                                 <th>Added by</th>
-                                <th>Action</th>
+                               
                                 
                             </tr>
                         </thead>
@@ -163,22 +157,25 @@
                                 <td>{{$client->company_name}}</td>
                                 <td><a href="{{$client->website_link}}" target="blank_">{{$client->website_link}}</a></td>
                                 <td>{{$client->email}}</td>
+                                <td>{{$client->asin}}</td>
                                 <td>{{$client->phone}}</td>
                                 <td> 
-                                    @if($client->status == "Uncheck")
-                                    <span class="badge badge-pill badge-soft-danger font-size-11">
+                                   @if($client->status == "Valid")
+                                    <span class="badge badge-pill badge-soft-info font-size-11">
+                                        <a id="view" href="#" data-bs-toggle="modal" class="text-info" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a> </span>
                                     @else 
-                                    <span class="badge badge-pill badge-soft-success font-size-11">
-                                    @endif    
-                                    {{ucfirst($client->status)}}</span>
+                                    <span class="badge badge-pill badge-soft-warning font-size-11">
+                                        <a id="view" href="#" data-bs-toggle="modal" class="text-warning" data-bs-target="#status-{{$client->id}}">{{ucfirst($client->status)}}</a> </span>
+                                    @endif
                                         
                                 </td>
-                                 <td>{{date('M d Y',strtotime($client->created_at))}}</td>
-                                <td>{{$client->user->name}}</td>
-                                <td> 
+                                 <td>{{date('M d Y',strtotime($client->checker_updated_at))}}</td>
+                                <td>{{$client->checker->name}}</td>
+                                <!--<td> 
                                     <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#edit-{{$client->id}}" ><i class="bx bx-xs bx-pencil mr-1"></i></a>
                                     <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#delete-{{$client->id}}"><i class="bx bx-xs text-danger bx-trash mr-1"></i></a>
                                 </td>
+                            -->
                                     <!--Update Status Modal -->
                                     <div class="modal fade bs-example-modal-sm" id="status-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog modal-sm">
@@ -187,24 +184,33 @@
                                                         <h5 class="modal-title" id="mySmallModalLabel">Change Supplier Status</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <form action="supplier/update/{{$client->id}}" method="POST">
+                                                    <form action="../supplier/update/{{$client->id}}" method="POST">
                                                         @csrf
                                                     <div class="modal-body">
                                                         <div class="row">
                                                                     <div class="col-lg-12">
                                                                     <div class="mb-3">
-                                                                        <label class="col-md-12 col-form-label">Client Current Status:</label>
+                                                                        <label class="col-md-12 col-form-label">Supplier Status:</label>
                                                                         <div class="col-md-12">
                                                                             <select class="form-select" name="status">
-                                                                                <option value="Incomplete" {{$client->status == 'Incomplete'}}>Incomplete</option>
-                                                                                <option value="Completed" {{$client->status == 'Completed'}}>Completed</option>
+                                                                                <option value="Valid" {{($client->status == 'Valid')? 'selected' : ''}}>Valid</option>
+                                                                                <option value="Invalid" {{($client->status == 'Invalid')? 'selected' : ''}}>Invalid</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="col-lg-12">
+                                                                            <div class="mb-3">
+                                                                                <label for="productdesc">Checker Notes</label>
+                                                                                <textarea class="form-control" name="checker_notes" id="productdesc" rows="5" placeholder="Input some notes">{{$client->checker_notes}}</textarea>
+                                                                            </div>
+
+                                                                        </div>
                                                                 </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
+                                                        <input type="hidden" name="checker_id" value="{{Auth::user()->id}}"/>
+                                                        <input type="hidden" name="checker_updated_at" value="{{date('Y-m-d h:i:s')}}"/>
                                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                                                         <button type="submit"  name="update_client" class="btn btn-primary">Save</button>
                                                     </div>

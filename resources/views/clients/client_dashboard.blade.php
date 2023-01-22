@@ -32,7 +32,7 @@
                             <img src="{{ isset(Auth::user()->avatar) ? asset(Auth::user()->avatar) : asset('/assets/images/users/avatar-1.jpg') }}" alt="" class="img-thumbnail rounded-circle">
                         </div>
                         <h5 class="font-size-15 text-truncate">{{ Str::ucfirst(Auth::user()->name) }}</h5>
-                        <p class="text-muted mb-0 text-truncate">{{ Str::ucfirst(Auth::user()->type) }}</p>
+                        <p class="text-muted mb-0 text-truncate">Client Corr</p>
                     </div>
 
                     <div class="col-sm-8">
@@ -166,6 +166,7 @@
                                 <th class="align-middle">Company</th>
                                 <th class="align-middle">Payment Method</th>
                                 <th class="align-middle">Status</th>
+                                <th class="align-middle">Added by</th>
                                 <th class="align-middle">View Details</th>
                             </tr>
                         </thead>
@@ -192,6 +193,7 @@
                                     @endif
                                          </span>
                                 </td>
+                                 <td>{{$client->user->name}}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light"  data-bs-toggle="modal" data-bs-target="#view-{{$client->id}}">
                                         View Details
@@ -305,13 +307,21 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="col-lg-12">
+                                                                    <div class="col-lg-6">
                                                                         <div class="mb-3">
                                                                             <label for="basicpill-address-input">Address</label>
                                                                             <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->address}}" disabled>
                                                                         </div>
                                                                     </div>
-                                                                </div>                                                            
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="basicpill-address-input">Added by</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->user->name}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div> 
+                                                                                                                    
                                                         </section>
                                                         <h3>Facebook Platform Details</h3>
                                                         <section>

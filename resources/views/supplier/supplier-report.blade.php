@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title') Prospected Supplier List By Date @endsection
+@section('title') Uncheck Supplier List By Date From {{$date_from}} To {{$date_to}} @endsection
 
 @section('css')
     <!-- DataTables -->
@@ -11,7 +11,7 @@
 
     @component('components.breadcrumb')
         @slot('li_1') Sourcer @endslot
-        @slot('title') Prospected Supplier List By Date @endslot
+        @slot('title') Uncheck Supplier List By Date @endslot
     @endcomponent
 
     <div class="row">
@@ -20,8 +20,44 @@
                 <div class="card-body">
 
                     
-                    <p class="card-title-desc"> Prospected Supplier Reports are the supplier reports by the company to be part of.
+                    <p class="card-title-desc"> Uncheck Supplier Reports are the supplier reports by the company to be part of.
                     </p>
+                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="../supplier/report-with-date" method="POST" class="row row-cols-lg-auto g-3 align-items-center">
+                                        <div class="col-12">
+                                            @csrf
+                                            <div class="input-group">
+                                                <div class="input-group-text">From</div>
+                                                 <input class="form-control" type="date" name="date_from" value="{{$date_from}}" id="example-date-input">
+                                            </div>
+                                            
+                                        </div>
+
+                                        
+
+                                        <div class="col-12">
+                                            <div class="input-group">
+                                                <div class="input-group-text">To</div>
+                                                 <input class="form-control" type="date" name="date_to" value="{{$date_to}}" id="example-date-input">
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary w-md">Get Report</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                        <!-- end col -->
+                    </div>
                    
                     <table id="datatable-buttons" class="table table-bordered dt-responsive  nowrap w-100">
                         <thead>
@@ -31,7 +67,6 @@
                                 <th>Company Name</th>
                                 <th>Website Link</th>
                                 <th>Email Address</th>
-                                <th>ASIN</th>
                                 <th>Contact</th>                        
                                 <th>Status</th>
                                 <th>Date Added</th>
@@ -48,11 +83,10 @@
                                 <td>{{$client->company_name}}</td>
                                 <td><a href="{{$client->website_link}}" target="blank_">{{$client->website_link}}</a></td>
                                 <td>{{$client->email}}</td>
-                                <td>{{$client->asin}}</td>
                                 <td>{{$client->phone}}</td>
                                 
                                 <td> 
-                                    @if($client->status == "Incomplete")
+                                    @if($client->status == "Uncheck")
                                     <span class="badge badge-pill badge-soft-danger font-size-11">
                                     @else 
                                     <span class="badge badge-pill badge-soft-success font-size-11">
