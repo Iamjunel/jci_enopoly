@@ -26,6 +26,6 @@ class ClientCorrMiddleware
         return response()->view('pages-403');
         }
         auth()->logout();
-        return abort(404);
+        return response()->view('pages-404');
     }
 }

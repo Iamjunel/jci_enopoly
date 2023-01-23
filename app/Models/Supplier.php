@@ -11,7 +11,7 @@ class Supplier extends Model
 
     protected $table = 'supplier';
     
-    protected $fillable = ['firstname','lastname','email','phone','asin','company_name','website_link','types','added_by','status','checker_notes','checker_updated_at','checker_id'];
+    protected $fillable = ['firstname','lastname','email','phone','asin','company_name','website_link','types','added_by','status','checker_notes','checker_updated_at','checker_id','caller_notes','caller_updated_at','caller_id'];
 
     public function user()
     {
@@ -20,5 +20,9 @@ class Supplier extends Model
     public function checker()
     {
         return $this->belongsTo(User::class,'checker_id','id');
+    }
+    public function caller()
+    {
+        return $this->belongsTo(User::class,'caller_id','id');
     }
 }

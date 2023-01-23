@@ -26,6 +26,8 @@
             @include('layouts.caller_sidebar')
         @elseif(Auth::user()->type == 'checker')
             @include('layouts.checker_sidebar')
+        @elseif(Auth::user()->type == 'admin')
+            @include('layouts.admin_sidebar')
         @endif
         <!-- ============================================================== -->
         <!-- Start right Content here -->

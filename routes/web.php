@@ -68,6 +68,11 @@ Route::group(['middleware' => ['checker'], 'prefix' => 'checker'], function (){
 });
 Route::group(['middleware' => ['caller'], 'prefix' => 'caller'], function (){
     Route::get('/', [App\Http\Controllers\CallerController::class, 'index'])->name('caller.dashboard');
+    Route::get('supplier/checked', [App\Http\Controllers\CallerController::class, 'checker_checked'])->name('caller.supplier_checked');
+    Route::get('supplier/caller_checked', [App\Http\Controllers\CallerController::class, 'caller_checked'])->name('caller.supplier_approved');
+    Route::get('supplier/report', [App\Http\Controllers\CallerController::class, 'supplier_report'])->name('caller.supplier.report');
+    Route::post('supplier/report-with-date', [App\Http\Controllers\CallerController::class, 'supplier_report_with_date'])->name('caller.supplier.report-with-date');
+    Route::post('supplier/update/{id}', [App\Http\Controllers\SupplierController::class, 'update'])->name('caller.supplier.update');
     /*
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');
     Route::get('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('client_corr.company.index');
