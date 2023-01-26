@@ -11,7 +11,7 @@
                     <li>
                         <a href="#" class="waves-effect">
                             <i class="bx bxs-dashboard"></i>
-                            <span key="t-chat">Dashboard(In-progress)</span>
+                            <span key="t-chat">Dashboard(In-progress )</span>
                         </a>
                     </li>
             

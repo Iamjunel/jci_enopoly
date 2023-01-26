@@ -14,7 +14,7 @@ class SupplierController extends Controller
     public function index()
     {
         //
-        $supplier = Supplier::with('user')->get();
+        $supplier = Supplier::with('user')->whereNull('checker_id')->get();
         return view('supplier.supplier',compact('supplier'));
 
         
@@ -41,7 +41,7 @@ class SupplierController extends Controller
         //
         Supplier::create($request->post());
 
-        return redirect()->back()->with('success', 'Client has been created successfully.');
+        return redirect()->back()->with('success', 'Supplier has been created successfully.');
     }
 
     /**

@@ -36,7 +36,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                             <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Add Prospected Supplier</h5>
+                                        <h5 class="modal-title" id="staticBackdropLabel">Add Uncheck Supplier</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -46,7 +46,7 @@
                                                  <form action="supplier/store" method="POST">
                                                 <div id="basic-example">
                                                     <!-- Seller Details -->
-                                                    <h3>Prospected Supplier Details</h3>
+                                                    <h3>Uncheck Supplier Details</h3>
                                                     <section>
                                                        
                                                             @csrf
@@ -219,7 +219,7 @@
                                     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                             <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Add Uncheck Supplier</h5>
+                                        <h5 class="modal-title" id="staticBackdropLabel">Update Uncheck Supplier</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">

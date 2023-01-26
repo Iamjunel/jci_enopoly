@@ -85,6 +85,8 @@ class CustomAuthController extends Controller
                 return redirect()->route('sourcer.dashboard');
             } else if (Auth::user()->type == "caller") {
                 return redirect()->route('caller.dashboard');
+            } else if (Auth::user()->type == "checker") {
+                return redirect()->route('checker.dashboard');
             }
             else{
                 return view('index');

@@ -28,6 +28,8 @@ class ClientController extends Controller
     public function create()
     {
         //
+        $companies = Company::all();
+        return view('clients.create', compact('companies'));
     }
 
     /**

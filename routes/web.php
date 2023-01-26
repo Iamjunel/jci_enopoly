@@ -34,6 +34,7 @@ Route::prefix('admin')->group(function () {
 Route::group(['middleware' => ['client_corr'], 'prefix' => 'client_corr'], function (){    
     Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('client_corr.dashboard');
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');
+    Route::get('client/create', [App\Http\Controllers\ClientController::class, 'create'])->name('client_corr.client.create');
     Route::post('client/store', [App\Http\Controllers\ClientController::class, 'store'])->name('client_corr.client.store');
     Route::post('client/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('client_corr.client.update');
     Route::post('client/update_dashboard/{id}', [App\Http\Controllers\ClientCorrController::class, 'update'])->name('client_corr.client_dashboard.update');
@@ -58,6 +59,7 @@ Route::group(['middleware' => ['sourcer'], 'prefix' => 'sourcer'], function (){
 });
 Route::group(['middleware' => ['checker'], 'prefix' => 'checker'], function (){
     Route::get('/', [App\Http\Controllers\CheckerController::class, 'index'])->name('checker.dashboard');
+    Route::post('supplier/store', [App\Http\Controllers\SupplierController::class, 'store'])->name('checker.supplier.store');
     Route::get('supplier', [App\Http\Controllers\CheckerController::class, 'checker_index'])->name('checker.supplier');
     Route::get('supplier/checked', [App\Http\Controllers\CheckerController::class, 'checker_checked'])->name('checker.supplier_checked');
     Route::post('supplier/update/{id}', [App\Http\Controllers\SupplierController::class, 'update'])->name('checker.supplier.update');

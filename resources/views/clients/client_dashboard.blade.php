@@ -479,7 +479,7 @@
                                         <label class="form-check-label" for="transactionCheck01"></label>
                                     </div>
                                 </th>
-                                <th class="align-middle">Order ID</th>
+                                <th class="align-middle">PO Number</th>
                                 <th class="align-middle">Billing Name</th>
                                 <th class="align-middle">Date</th>
                                 <th class="align-middle">Total</th>

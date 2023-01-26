@@ -22,10 +22,12 @@
                     
                     <p class="card-title-desc"> Onboarding Clients are the clients approved by the company to be part of.
                     </p>
-                    <!-- Static Backdrop modal Button -->
+                    <!-- Static Backdrop modal Button 
                     <button type="button" class="btn btn-primary waves-effect waves-light my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                        + Add Onboarding Client
                     </button>
+                    -->
+                    <a href="client/create" class="btn btn-primary waves-effect waves-light my-2"> + Add Onboarding Client</a>
                     <button type="button" class="btn btn-success waves-effect waves-light my-2" disabled >
                        + Import Excel/CSV File
                     </button>

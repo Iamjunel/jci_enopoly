@@ -22,6 +22,119 @@
                     
                     <p class="card-title-desc"> Uncheck Suppliers are the suppliers that need to be approved by the company to be part of.
                     </p>
+                    <button type="button" class="btn btn-primary waves-effect waves-light my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                       + Add Uncheck Supplier
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light my-2" disabled >
+                       + Import Excel/CSV File
+                    </button>
+
+                    <!-- Add Onboarding Client Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                            <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Add Uncheck Supplier</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                 <form action="supplier/store" method="POST">
+                                                <div id="basic-example">
+                                                    <!-- Seller Details -->
+                                                    <h3>Uncheck Supplier Details</h3>
+                                                    <section>
+                                                       
+                                                            @csrf
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-firstname-input">First name</label>
+                                                                        <input type="text" class="form-control" id="basicpill-firstname-input" name="firstname" placeholder="Enter First Name">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-lastname-input">Last name</label>
+                                                                        <input type="text" class="form-control" id="basicpill-lastname-input" name="lastname" placeholder="Enter Last Name">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-phoneno-input">Phone</label>
+                                                                        <input type="text" class="form-control" id="basicpill-phoneno-input" name="phone" placeholder="Enter Phone No.">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-email-input">Email</label>
+                                                                        <input type="email" class="form-control" id="basicpill-email-input" name="email" placeholder="Enter Email Address">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-asin-input">ASIN</label>
+                                                                        <input type="text" class="form-control" id="basicpill-asin-input" name="asin" placeholder="Enter ASIN No.">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-company-input">Company Name</label>
+                                                                        <input type="text" class="form-control" id="basicpill-company-input" name="company_name" placeholder="Enter Company Name">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-link-input">Website Link</label>
+                                                                        <input type="url" class="form-control" id="basicpill-link-input" name="website_link" placeholder="https://example.com">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="col-md-6 ">Type</label>
+                                                                        <div class="col-md-12">
+                                                                            <select class="form-select" name="types">
+                                                                                <option value="Distributor">Distributor</option>
+                                                                                <option value="Dealer">Dealer</option>
+                                                                                <option value="Whole Saler">Whole Saler</option>
+                                                                                <option value="Retailer">Retailer</option>
+                                                                                <option value="Brand">Brand</option>
+                                                
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                                                                               
+                                                        </section>
+                                                </div>
+
+                                            </div>
+                                            <!-- end card body -->
+                                        </div>
+                                        
+                                        <!-- end card -->
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="add_supplier" class="btn btn-primary">Save</button>
+                                    </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+
                   
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                         <thead>
@@ -36,7 +149,7 @@
                                 <th>Status</th>
                                 <th>Date Added</th>
                                 <th>Added by</th>
-            
+                                <th>Action</td>
                             </tr>
                         </thead>
 
@@ -63,11 +176,10 @@
                                 </td>
                                  <td>{{date('M d Y',strtotime($client->created_at))}}</td>
                                 <td>{{$client->user->name}}</td>
-                                <!--<td> 
+                                <td> 
                                     <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#edit-{{$client->id}}" ><i class="bx bx-xs bx-pencil mr-1"></i></a>
                                     <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#delete-{{$client->id}}"><i class="bx bx-xs text-danger bx-trash mr-1"></i></a>
                                 </td>
-                            -->
                                     <!--Update Status Modal -->
                                     <div class="modal fade bs-example-modal-sm" id="status-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog modal-sm">
