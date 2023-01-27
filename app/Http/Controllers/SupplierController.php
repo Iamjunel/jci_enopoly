@@ -38,7 +38,19 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array(
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:supplier'],
+            'website_link' => ['required', 'string', 'min:6', 'unique:supplier'],
+            );
+ 
+        $validator = \Validator::make($request->post(), $rules);
+    
+        if ($validator->fails())
+        {  
+            $error_message = implode(",",$validator->messages()->all());
+            return redirect()->back()->with('failed', "Supplier cannot be added because of this following reasons:\n". $error_message);
+        }
+
         Supplier::create($request->post());
 
         return redirect()->back()->with('success', 'Supplier has been created successfully.');
@@ -108,12 +120,13 @@ class SupplierController extends Controller
     public function supplier_report()
     {
         //
-         $date_from = date('Y-m-d', strtotime("Monday This Week"));
-         $date_to = date('Y-m-d', strtotime("Sunday This Week"));
+         $date_from = date('Y-m-d H:i:s', strtotime("Monday This Week"));
+         $date_to = date('Y-m-d H:i:s', strtotime("Sunday This Week"));
          $status = 'Uncheck';
 
-        $supplier = Supplier::with('user')->whereDate('created_at','>=',$date_from)->whereDate('created_at','<=',$date_to)->get();
-        return view('supplier.supplier-report', compact('supplier','date_from','date_to'));
+        $supplier = Supplier::with('user')->whereDate('created_at','>=',$date_from)->whereDate('created_at','<=',$date_to)->where('status','=',$status)->get();
+        $supplier_count = $supplier->count();
+        return view('supplier.supplier-report', compact('supplier','date_from','date_to','supplier_count'));
     }
 
     public function supplier_report_with_date(Request $request)
@@ -124,16 +137,19 @@ class SupplierController extends Controller
         $status ="";
 
         if($request->date_from == null && $request->$date_to == null){
-            $date_from = date('Y-m-d', strtotime("Monday This Week"));
-            $date_to = date('Y-m-d', strtotime("Sunday This Week"));
-            $status = "Incomplete";
+            $date_from = date('Y-m-d H:i:s', strtotime("Monday This Week"));
+            $date_to = date('Y-m-d H:i:s', strtotime("Sunday This Week"));
+            $status = "Uncheck";
         }else{
-            $date_from = $request->date_from;
-            $date_to = $request->date_to;
-            $status = $request->status;
+            $date_from = date('Y-m-d H:i:s', strtotime($request->date_from));
+            $date_to = date('Y-m-d H:i:s', strtotime($request->date_to));
+            $status = 'Uncheck';
         }
 
-        $supplier = Supplier::with('user')->whereDate('created_at','>=',$date_from)->whereDate('created_at','<=',$date_to)->get();
-        return view('supplier.supplier-report', compact('supplier','date_from','date_to'));
+        
+
+        $supplier = Supplier::with('user')->where('created_at','>=',$date_from)->where('created_at','<=',$date_to)->where('status','=',$status)->get();
+        $supplier_count = $supplier->count();
+        return view('supplier.supplier-report', compact('supplier','date_from','date_to','supplier_count'));
     }
 }

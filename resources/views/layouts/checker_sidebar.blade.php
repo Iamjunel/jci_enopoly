@@ -31,7 +31,7 @@
                     <li>
                         <a href="{{route('checker.supplier.report')}}" class="waves-effect">
                             <i class="bx bxs-report"></i>
-                            <span key="t-chat">Valid | Invalid Supplier By Date</span>
+                            <span key="t-chat">Uncheck | Valid | Invalid Supplier By Date</span>
                         </a>
                     </li>
                     

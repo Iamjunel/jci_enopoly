@@ -64,7 +64,7 @@
         $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
             $("#success-alert").slideUp(500);
         });
-        $("#failed-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#failed-alert").fadeTo(10000, 500).slideUp(500, function(){
             $("#failed-alert").slideUp(500);
         });
         </script>

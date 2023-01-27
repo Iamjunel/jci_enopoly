@@ -119,7 +119,7 @@ class CheckerController extends Controller
         return view('checker.checker',compact('supplier'));
     }
     public function checker_checked(){
-        $supplier = Supplier::with('user')->where('checker_id','!=',null)->get();
+        $supplier = Supplier::with('user')->where('checker_id','!=',null)->where('caller_id','=',null)->get();
         return view('checker.checked',compact('supplier'));
     }
 
@@ -131,7 +131,8 @@ class CheckerController extends Controller
          $status = 'Valid';
 
         $supplier = Supplier::with('checker')->whereDate('checker_updated_at','>=',$date_from)->whereDate('checker_updated_at','<=',$date_to)->where('status','=',$status)->get();
-        return view('checker.checker-report', compact('supplier','date_from','date_to','status'));
+         $supplier_count = $supplier->count();
+        return view('checker.checker-report', compact('supplier','date_from','date_to','status','supplier_count'));
     }
 
     public function supplier_report_with_date(Request $request)
@@ -146,12 +147,16 @@ class CheckerController extends Controller
             $date_to = date('Y-m-d', strtotime("Sunday This Week"));
             $status = "Valid";
         }else{
-            $date_from = $request->date_from;
-            $date_to = $request->date_to;
+            $date_from = date('Y-m-d H:i:s', strtotime($request->date_from));
+            $date_to = date('Y-m-d H:i:s', strtotime($request->date_to));
             $status = $request->status;
         }
-
-        $supplier = Supplier::with('checker')->whereDate('checker_updated_at','>=',$date_from)->whereDate('checker_updated_at','<=',$date_to)->where('status','=',$status)->get();
-        return view('checker.checker-report', compact('supplier','date_from','date_to','status'));
+        if($status == 'Uncheck'){
+             $supplier = Supplier::with('user')->where('created_at','>=',$date_from)->where('created_at','<=',$date_to)->where('status','=',$status)->get();
+        }else{
+             $supplier = Supplier::with('checker')->where('checker_updated_at','>=',$date_from)->where('checker_updated_at','<=',$date_to)->where('status','=',$status)->get();
+        }
+        $supplier_count = $supplier->count();
+        return view('checker.checker-report', compact('supplier','date_from','date_to','status','supplier_count'));
     }
 }

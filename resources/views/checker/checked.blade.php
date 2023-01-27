@@ -133,13 +133,13 @@
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                         <thead>
                             <tr>
-                                <th>Full Name</th>
+                               <th>Company Name</th>
                                 <th>ASIN</th>
-                                <th>Company Name</th>
+                                
                                 <th>Website Link</th>
                                 <th>Email Address</th>
-                                <th>Asin</th>
                                 <th>Contact</th>
+                                <th>Notes</th>
                                 <th>Status</th>
                                 <th>Date Added</th>
                                 <th>Added by</th>
@@ -152,13 +152,13 @@
                         <tbody>
                             @foreach ($supplier as $client)
                             <tr>
-                                <td>{{$client->firstname}} {{$client->lastname}}</td>
+                                 <td>{{$client->company_name}}</td>
                                 <td>{{$client->asin}}</td>
-                                <td>{{$client->company_name}}</td>
+                               
                                 <td><a href="{{$client->website_link}}" target="blank_">{{$client->website_link}}</a></td>
                                 <td>{{$client->email}}</td>
-                                <td>{{$client->asin}}</td>
                                 <td>{{$client->phone}}</td>
+                                <td>{{$client->notes}}</td>
                                 <td> 
                                    @if($client->status == "Valid")
                                     <span class="badge badge-pill badge-soft-info font-size-11">
@@ -239,28 +239,16 @@
                                                     <section>
                                                        
                                                             @csrf
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="mb-3">
-                                                                        <label for="basicpill-firstname-input">First name</label>
-                                                                        <input type="text" class="form-control" id="basicpill-firstname-input" name="firstname" value="{{$client->firstname}}" placeholder="Enter First Name">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <div class="mb-3">
-                                                                        <label for="basicpill-lastname-input">Last name</label>
-                                                                        <input type="text" class="form-control" id="basicpill-lastname-input" name="lastname" value="{{$client->lastname}}" placeholder="Enter Last Name">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        
 
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
-                                                                        <label for="basicpill-phoneno-input">Phone</label>
-                                                                        <input type="text" class="form-control" id="basicpill-phoneno-input" name="phone" value="{{$client->phone}}" placeholder="Enter Phone No.">
+                                                                        <label for="basicpill-company-input">Company Name</label>
+                                                                        <input type="text" class="form-control" id="basicpill-company-input" name="company_name" value="{{$client->company_name}}" placeholder="Enter Company Name">
                                                                     </div>
                                                                 </div>
+                                                                
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-email-input">Email</label>
@@ -277,10 +265,11 @@
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
-                                                                        <label for="basicpill-company-input">Company Name</label>
-                                                                        <input type="text" class="form-control" id="basicpill-company-input" name="company_name" value="{{$client->company_name}}" placeholder="Enter Company Name">
+                                                                        <label for="basicpill-phoneno-input">Phone</label>
+                                                                        <input type="text" class="form-control" id="basicpill-phoneno-input" name="phone" value="{{$client->phone}}" placeholder="Enter Phone No.">
                                                                     </div>
                                                                 </div>
+                                                                
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-lg-6">
@@ -304,6 +293,15 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-link-input">Notes</label>
+                                                                        <textarea class="form-control" name="notes" placeholder="Enter some notes about the supplier">{{$client->notes}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                
                                                             </div>
                                                                                                                
                                                         </section>
