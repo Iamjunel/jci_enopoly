@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use App\Models\Announcement;
 class SupplierController extends Controller
 {
     /**
@@ -15,7 +16,8 @@ class SupplierController extends Controller
     {
         //
         $supplier = Supplier::with('user')->whereNull('checker_id')->get();
-        return view('supplier.supplier',compact('supplier'));
+        $announcement = Supplier::with('user')->get();
+        return view('supplier.supplier',compact('supplier','announcement'));
 
         
     }

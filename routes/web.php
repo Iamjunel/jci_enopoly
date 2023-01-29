@@ -29,6 +29,10 @@ Route::get('/', [App\Http\Controllers\CustomAuthController::class, 'index']);
 
 Route::prefix('admin')->group(function () {
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('admin.client.index');
+    Route::get('announcement', [App\Http\Controllers\AnnouncementController::class, 'index'])->name('admin.announcement');
+    Route::post('announcement/store', [App\Http\Controllers\AnnouncementController::class, 'store'])->name('admin.announcement.store');
+    Route::post('announcement/update/{id}', [App\Http\Controllers\AnnouncementController::class, 'update'])->name('admin.announcement.update');
+    Route::post('announcement/destroy/{id}', [App\Http\Controllers\AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
     Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('admin.root');
 });
 Route::group(['middleware' => ['client_corr'], 'prefix' => 'client_corr'], function (){    

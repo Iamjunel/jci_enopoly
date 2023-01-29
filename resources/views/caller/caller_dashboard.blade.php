@@ -70,89 +70,101 @@
         
         <div class="card" style="height:350px;overflow-y:auto">
             <div class="card-body">
-                <h4 class="card-title mb-5">Management Announcement (In-Progress)</h4>
+                <h4 class="card-title mb-5">Management Announcement</h4>
                 <ul class="verti-timeline list-unstyled">
+                   
+                    @foreach ($announcement as $announce)
+                    @if((date('Y-m-d',strtotime($announce->created_at)) != date('Y-m-d')))
                     <li class="event-list">
                         <div class="event-timeline-dot">
                             <i class="bx bx-right-arrow-circle font-size-18"></i>
                         </div>
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
-                                <h5 class="font-size-14">22 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
+                                <h5 class="font-size-14">{{date('d M',strtotime($announce->created_at))}}<i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
                             </div>
-                            <div class="flex-grow-1">
-                                <div>
-                                    Responded to need “Volunteer Activities
+                            <div class="flex-grow-1 ">
+                                <div class="text-break">
+                                    @if(strlen($announce->message) > 50)
+                                    {{mb_strimwidth($announce->message,0,50,'...')}}<a href="javascript: void(0);" data-bs-toggle="modal" data-bs-target="#dash-{{$announce->id}}">Read more</a>
+                                     <!--  Readmore Modal-->
+                                        <div class="modal fade  bs-example-modal-sm" id="dash-{{$announce->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog  modal-md">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="mySmallModalLabel">Read Announcement Detail</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="font-size-15" style="white-space: pre-wrap">{{$announce->message}}</p>
+                                                        <p class="float-end">Posted by: {{$announce->user->name}}</p>   
+                                                    </div>
+                                                    
+                                                        
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                      
+                                                    </div>
+                                                   
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+                                    @else
+                                    {{$announce->message}}    
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    <li class="event-list">
-                        <div class="event-timeline-dot">
-                            <i class="bx bx-right-arrow-circle font-size-18"></i>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                                <h5 class="font-size-14">17 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                            </div>
-                            <div class="flex-grow-1">
-                                <div>
-                                    Everyone realizes why a new common language would be desirable... <a href="javascript: void(0);">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="event-list">
-                        <div class="event-timeline-dot">
-                            <i class="bx bx-right-arrow-circle font-size-18"></i>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                                <h5 class="font-size-14">17 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                            </div>
-                            <div class="flex-grow-1">
-                                <div>
-                                    Everyone realizes why a new common language would be desirable... <a href="javascript: void(0);">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="event-list active">
+                    </li>    
+                    @else
+                     <li class="event-list active">
                         <div class="event-timeline-dot">
                             <i class="bx bxs-right-arrow-circle font-size-18 bx-fade-right"></i>
                         </div>
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
-                                <h5 class="font-size-14">15 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
+                                <h5 class="font-size-14">{{date('d M',strtotime($announce->created_at))}}<i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
                             </div>
                             <div class="flex-grow-1">
-                                <div>
-                                    Joined the group “Boardsmanship Forum”
+                                <div class="text-break">
+                                    @if(strlen($announce->message) > 50)
+                                    {{mb_strimwidth($announce->message,0,50,'...')}}<a href="javascript: void(0);" data-bs-toggle="modal" data-bs-target="#dash-{{$announce->id}}">Read more</a>
+                                     <!--  Readmore Modal-->
+                                        <div class="modal fade  bs-example-modal-sm" id="dash-{{$announce->id}}"  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog  modal-md">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="mySmallModalLabel">Read Announcement Detail</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="font-size-15" style="white-space: pre-wrap">{{$announce->message}}</p>
+                                                        <p class="float-end">Posted by: {{$announce->user->name}}</p>   
+                                                    </div>
+                                                    
+                                                        
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                      
+                                                    </div>
+                                                   
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+                                    @else
+                                    {{$announce->message}}    
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    <li class="event-list">
-                        <div class="event-timeline-dot">
-                            <i class="bx bx-right-arrow-circle font-size-18"></i>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                                <h5 class="font-size-14">12 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                            </div>
-                            <div class="flex-grow-1">
-                                <div>
-                                    Responded to need “In-Kind Opportunity”
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    </li>   
+                    @endif
+                    @endforeach
                 </ul>
                 
                 <div class="text-center mt-4"><!--<a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ms-1"></i></a> --></div>
             </div>
         </div>
-       
         
     </div>
     <div class="col-xl-8">

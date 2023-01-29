@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
 use App\Models\Company;
+use App\Models\Announcement;
 use Carbon\Carbon;
 class ClientCorrController extends Controller
 {
@@ -32,9 +33,10 @@ class ClientCorrController extends Controller
         $client_array["monthly_client"] = $monthly_client_count;
         $client_array["yearly_client"] = $yearly_client_count;
         $client_array["daily_client_user"] = $daily_client_count_user;
+        
+        $announcement = Announcement::with('user')->orderBy('id','desc')->take(50)->get();
 
-
-        return view('clients.client_dashboard', compact('client_array'));
+        return view('clients.client_dashboard', compact('client_array','announcement'));
 
     }
 

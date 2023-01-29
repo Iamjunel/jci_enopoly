@@ -102,7 +102,7 @@
                                 <td><a href="{{$client->website_link}}" target="blank_">{{$client->website_link}}</a></td>
                                 <td>{{$client->email}}</td>
                                 <td>{{$client->phone}}</td>
-                                <td>{{$client->notes}}</td>
+                                <td>{{$client->notes }}</td>
                                 
                                 <td> 
                                     @if($client->status == "Valid")

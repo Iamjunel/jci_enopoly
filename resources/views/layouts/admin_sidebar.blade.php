@@ -11,34 +11,16 @@
 
                
                 <li>
-                    <a href="{{route('client_corr.dashboard')}}" class="waves-effect">
-                        <i class="bx bxs-dashboard"></i>
-                        <span key="t-chat">Dashboard</span>
-                    </a>
-                 </li>
-                 <li>
-                    <a href="{{route('client_corr.client.index')}}" class="waves-effect">
-                        <i class="bx bx-user-voice"></i>
-                        <span key="t-chat">Onboarding Clients</span>
-                    </a>
-                 </li>
-                 <li>
-                    <a href="{{route('client_corr.company.index')}}" class="waves-effect">
-                        <i class="bx bx-buildings"></i>
-                        <span key="t-chat">Company</span>
-                    </a>
-                 </li>
-                 <li>
                     <a href="#" class="waves-effect">
-                        <i class="bx bx-calculator"></i>
-                        <span key="t-chat">Client Pending Invoice</span>
+                        <i class="bx bxs-dashboard"></i>
+                        <span key="t-chat">Dashboard (In-progress)</span>
                     </a>
                  </li>
-                 <li class="menu-title" key="t-menu">Generated Reports</li>
+                 
                  <li>
-                    <a href="{{route('client_corr.client.report')}}" class="waves-effect">
-                        <i class="bx bxs-report"></i>
-                        <span key="t-chat">Clients List By Date</span>
+                    <a href="{{route('admin.announcement')}}" class="waves-effect">
+                        <i class="bx bx-user-voice"></i>
+                        <span key="t-chat">Announcements</span>
                     </a>
                  </li>
             

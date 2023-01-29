@@ -117,8 +117,7 @@
                         <div class="mt-5 text-center">
 
                             <div>
-                                <p>Don't have an account ? <a href="auth-register" class="fw-medium text-primary">
-                                        Signup now </a> </p>
+                               
                                 <p>© <script>
                                         document.write(new Date().getFullYear())
 

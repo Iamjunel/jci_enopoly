@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 class CheckerController extends Controller
@@ -44,8 +45,8 @@ class CheckerController extends Controller
        
         
 
-
-        return view('checker.checker_dashboard', compact('supplier_array'));
+        $announcement = Announcement::with('user')->orderBy('id','desc')->take(50)->get();
+        return view('checker.checker_dashboard', compact('supplier_array','announcement'));
     }
 
     /**

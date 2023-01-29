@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -45,8 +46,8 @@ class CallerController extends Controller
        
         
 
-
-        return view('caller.caller_dashboard', compact('supplier_array'));
+        $announcement = Announcement::with('user')->orderBy('id','desc')->take(50)->get();
+        return view('caller.caller_dashboard', compact('supplier_array','announcement'));
     }
     
 

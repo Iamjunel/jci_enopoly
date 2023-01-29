@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 class SourcerController extends Controller
@@ -32,9 +33,10 @@ class SourcerController extends Controller
         $supplier_array["monthly_supplier"] = $monthly_supplier_count;
         $supplier_array["yearly_supplier"] = $yearly_supplier_count;
         $supplier_array["daily_supplier_user"] = $daily_supplier_count_user;
+        
+         $announcement = Announcement::with('user')->orderBy('id','desc')->take(50)->get();
 
-
-        return view('supplier.supplier_dashboard', compact('supplier_array'));
+        return view('supplier.supplier_dashboard', compact('supplier_array','announcement'));
     }
 
     /**
