@@ -37,7 +37,7 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::group(['middleware' => ['accounting'], 'prefix' => 'accounting'], function (){    
-    //Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('accounting.dashboard');
+    Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('accounting.dashboard');
     Route::get('client', [App\Http\Controllers\AccountingController::class, 'index'])->name('accounting.client.index');
     //Route::get('client/create', [App\Http\Controllers\ClientController::class, 'create'])->name('accounting.client.create');
     //Route::get('client/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->name('accounting.client.edit');
