@@ -279,7 +279,7 @@
                                                     </section>
                                                     <h3>Payment Details</h3>
                                                         <section>
-                                                             @if(count($client->store_details))
+                                                             @if(count($client->payment_details))
                                                             @foreach($client->payment_details as $key => $pay)
                                                            
                                                             
