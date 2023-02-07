@@ -50,6 +50,7 @@ class CustomAuthController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'type' => $data['type'],
             'dob' => date('Y-m-d', strtotime($request['dob'])),
             'avatar' => "/images/" . $avatarName,
         ]);
@@ -72,7 +73,8 @@ class CustomAuthController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'type' => $data['type']
         ]);
     }
 

@@ -28,6 +28,8 @@
             @include('layouts.checker_sidebar')
         @elseif(Auth::user()->type == 'admin')
             @include('layouts.admin_sidebar')
+        @elseif(Auth::user()->type == 'accounting')
+            @include('layouts.accounting_sidebar')
         @endif
         <!-- ============================================================== -->
         <!-- Start right Content here -->

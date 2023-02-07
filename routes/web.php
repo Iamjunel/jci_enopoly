@@ -35,10 +35,30 @@ Route::prefix('admin')->group(function () {
     Route::post('announcement/destroy/{id}', [App\Http\Controllers\AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
     Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('admin.root');
 });
+
+Route::group(['middleware' => ['accounting'], 'prefix' => 'accounting'], function (){    
+    //Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('accounting.dashboard');
+    Route::get('client', [App\Http\Controllers\AccountingController::class, 'index'])->name('accounting.client.index');
+    //Route::get('client/create', [App\Http\Controllers\ClientController::class, 'create'])->name('accounting.client.create');
+    //Route::get('client/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->name('accounting.client.edit');
+    Route::post('store', [App\Http\Controllers\AccountingController::class, 'store'])->name('accounting.client.store');
+   // Route::post('client/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('accounting.client.update');
+    Route::post('destroy/{id}', [App\Http\Controllers\AccountingController::class, 'destroy'])->name('accounting.client_dashboard.destroy');
+
+
+    Route::get('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('accounting.company.index');
+    Route::post('company/store', [App\Http\Controllers\CompanyController::class, 'store'])->name('accounting.company.store');
+    Route::post('company/update/{id}', [App\Http\Controllers\CompanyController::class, 'update'])->name('accounting.company.update');
+    Route::post('company/destroy/{id}', [App\Http\Controllers\CompanyController::class, 'destroy'])->name('accounting.company.destroy');
+    Route::get('client/report', [App\Http\Controllers\ClientController::class, 'client_report'])->name('accounting.client.report');
+    Route::post('client/report-with-date', [App\Http\Controllers\ClientController::class, 'client_report_with_date'])->name('accounting.client.report-with-date');
+
+});
 Route::group(['middleware' => ['client_corr'], 'prefix' => 'client_corr'], function (){    
     Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('client_corr.dashboard');
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');
     Route::get('client/create', [App\Http\Controllers\ClientController::class, 'create'])->name('client_corr.client.create');
+    Route::get('client/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->name('client_corr.client.edit');
     Route::post('client/store', [App\Http\Controllers\ClientController::class, 'store'])->name('client_corr.client.store');
     Route::post('client/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('client_corr.client.update');
     Route::post('client/update_dashboard/{id}', [App\Http\Controllers\ClientCorrController::class, 'update'])->name('client_corr.client_dashboard.update');

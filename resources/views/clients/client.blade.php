@@ -212,7 +212,7 @@
                                 </td>
                                 <td>{{$client->user->name}}</td>
                                 <td> <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#view-{{$client->id}}"><i class="bx bx-xs bx-user mr-2"></i> </a> 
-                                    <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#edit-{{$client->id}}"><i class="bx bx-xs bx-pencil mr-1"></i></a>
+                                    <a id="view" href="client/edit/{{$client->id}}" ><i class="bx bx-xs bx-pencil mr-1"></i></a>
                                  </td>
                                     <!--Update Status Modal -->
                                     <div class="modal fade bs-example-modal-sm" id="status-{{$client->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -301,10 +301,11 @@
                                                                     </div>
                                                                     <div class="col-lg-6">
                                                                         <div class="mb-3">
-                                                                            <label class="col-md-6 col-form-label">Payment Method</label>
-                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->payment_method}}" disabled>
+                                                                            <label class="col-md-6 col-form-label">Address</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->address}}" disabled>
                                                                         </div>
                                                                     </div>
+
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col-lg-6">
@@ -320,14 +321,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="mb-3">
-                                                                            <label for="basicpill-address-input">Address</label>
-                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$client->address}}" disabled>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                
                                                                 <div class="row">
                                                                     <div class="col-lg-6">
                                                                         <div class="mb-3">
@@ -362,7 +356,51 @@
                                                                     </div>
                                                                 </div>
                                                         </section>
-                                                        <h3>Store Details is in progress..</h3>
+                                                        
+                                                        <section class="border-bottom py-2">
+                                                    <h3>Store Details</h3>
+                                                    @if(count($client->store_details))
+
+                                                    <div data-repeater-list="store">
+                                                     @foreach($client->store_details as $value)
+                                                        <div data-repeater-item class="row">
+                                                            
+                                                            <div class="mb-3 col-lg-2">
+                                                                <label for="name">Platform</label>
+                                                                <input type="text" id="name"  name="store_name" class="form-control" value="{{$value->platform}}"  placeholder="Enter Store Name" disabled/>
+                                                            </div>
+
+                                                            <div class="mb-3 col-lg-2">
+                                                                <label for="name">Name</label>
+                                                                <input type="text" id="name"  name="store_name" class="form-control" value="{{$value->name}}"  placeholder="Enter Store Name" disabled/>
+                                                            </div>
+
+                                                            <div class="mb-3 col-lg-2">
+                                                                <label for="email">Website Link:</label>
+                                                                <input type="text" id="message" class="form-control" name="store_line" value="{{$value->link}}" placeholder="http://example.com" disabled/>
+                                                            </div>
+
+                                                            <div class="mb-3 col-lg-2">
+                                                                <label for="email">Email/Username :</label>
+                                                                <input type="text" id="email" class="form-control" name="store_username" value="{{$value->username}}" placeholder="Enter Store Email/Username" disabled/>
+                                                            </div>
+
+                                                            <div class="mb-3 col-lg-2">
+                                                                <label for="subject">Password</label>
+                                                                <input type="text" id="subject" class="form-control" name="store_password" value="{{$value->password}}" placeholder="Enter Store Password" disabled />
+                                                            </div>
+                                                        </div>
+                                                        @endforeach
+                                                    </div>
+                                                    
+                                                    @else 
+                                                    <p class="text-center">No Store Details Available.</p>
+                                                    @endif
+                                                    </section>
+                                                    <h3>Payment Details(In-Progress)</h3>
+                                                        <section>
+                                                            
+                                                        </section>
                                                         
                                                         
                                                             

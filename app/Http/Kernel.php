@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'sourcer'     => \App\Http\Middleware\SourcerMiddleware::class,
         'checker'     => \App\Http\Middleware\CheckerMiddleware::class,
         'caller'     => \App\Http\Middleware\CallerMiddleware::class,
+        'accounting'  => \App\Http\Middleware\AccountingMiddleware::class,
     ];
 }

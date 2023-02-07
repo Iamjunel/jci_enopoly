@@ -16,7 +16,7 @@
             <div class="card-body">
                  <p class="card-title-desc"> Onboarding Clients are the clients approved by the company to be part of.
                     </p>
-                <form class="repeater" action="../client/store" enctype="multipart/form-data" method="POST">
+                <form class="repeater" enctype="multipart/form-data">
                    
                     <section class="border-bottom py-2">
                          <h3>Client Details</h3>
@@ -89,6 +89,37 @@
                     </section>
                     
                     <section class="border-bottom py-2">
+                        <h3>Payment Method Details</h3>
+                        <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                    <label class="col-md-6 col-form-label">Payment Method</label>
+                                    <div class="col-md-12">
+                                        <select class="form-select" id="payment_method" name="payment_method">
+                                            <option value="ACH">ACH</option>
+                                            <option value="ZELL">ZELL</option>
+                                            <option value="WIRE">WIRE</option>
+                                             <option value="CREDIT CARD">CREDIT CARD</option>
+            
+                                        </select>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-lg-6" id="credit_card" style="display:none">
+                                    <div class="mb-3">
+                                        <label class="col-md-6 col-form-label">Credit Card Number</label>
+                                        <input type="text" class="form-control" name="credit_name" id="basicpill-email-input" placeholder="Enter Your Credit Card Number">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="col-md-6 col-form-label">Credit Card Type</label>
+                                        <input type="text" class="form-control" name="credit_type" id="basicpill-email-input" placeholder="Enter Your Credit Card Type">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    </section>
+                    
+                    <section class="border-bottom py-2">
                         <h3>Facebook Platform Details</h3>
                         <div class="row">
                                 
@@ -114,9 +145,9 @@
                                 <div class="mb-3 col-lg-2">
                                     <label class="col-md-12 ">Company/Platform</label>
                                     <div class="col-md-12">
-                                        <select class="form-select" id="payment_method" name="platform">
+                                        <select class="form-select" id="payment_method" name="payment_method">
                                             <option value="Amazon" selected>Amazon</option>
-                                            <option value="Walmart">Walmart</option>
+                                            <option value="ACH">Walmart</option>
                                             
             
                                         </select>
@@ -139,7 +170,7 @@
 
                             <div class="mb-3 col-lg-2">
                                 <label for="subject">Password</label>
-                                <input type="text" id="subject" class="form-control" name="store_password" placeholder="Enter Store Password" />
+                                <input type="text" id="subject" class="form-control" name="store_passwore" placeholder="Enter Store Password" />
                             </div>
 
                             <div class="col-lg-2 align-self-center">

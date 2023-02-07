@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\StoreDetail;
 use App\Models\Company;
 class ClientController extends Controller
 {
@@ -15,7 +16,7 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients = Client::with('company','user')->get();
+        $clients = Client::with('company','user','store_details')->get();
         $companies = Company::all();
         return view('clients.client',compact('clients','companies'));
     }
@@ -40,10 +41,29 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        Client::create($request->post());
+        
+        $client_id = Client::create($request->post())->id;
+        if($request->post('store') != null){
+            foreach ($request->post('store') as $value) {
+               $store = array();
+               $store["platform"] = $value["platform"];
+               $store["name"] = $value["store_name"];
+               $store["link"] = $value["store_line"];
+               $store["username"] = $value["store_username"];
+               $store["password"] = $value["store_password"];
+               $store["client_id"] = $client_id;
+               $store["added_by"] = $request->post('added_by');
+               
+               StoreDetail::create($store);
+            }
+        }
 
-        return redirect()->route('client_corr.client.index')->with('success', 'Client has been created successfully.');
+        //
+        //Client::create($request->post());
+
+
+
+        //return redirect()->route('client_corr.client.index')->with('success', 'Client has been created successfully.');
     }
 
     /**
@@ -66,6 +86,10 @@ class ClientController extends Controller
     public function edit($id)
     {
         //
+        $client = Client::with('company','user','store_details')->where('id',$id)->first();
+        
+         $companies = Company::all();
+        return view('clients.edit', compact('client','companies'));
     }
 
     /**
@@ -77,14 +101,36 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
         $client = Client::where('id',$id)->first();
         
         if(!empty($client)){
+            if($request->post('store') != null){
+            $company = StoreDetail::where('client_id','=',$id)->get();
+            $company->each->delete();
+            
+            foreach ($request->post('store') as $value) {
+               if($value["platform"] !=""){
+                    $store = array();
+                    $store["platform"] = $value["platform"];
+                    $store["name"] = $value["store_name"];
+                    $store["link"] = $value["store_line"];
+                    $store["username"] = $value["store_username"];
+                    $store["password"] = $value["store_password"];
+                    $store["client_id"] = $id;
+                    $store["added_by"] = $request->post('added_by');
+                    
+                    StoreDetail::create($store);
+               } 
+               
+            }
+        }
+
+
             $client->update($request->post());
         }        
 
-        return redirect()->route('client_corr.client.index')->with('success', 'Client has been updated successfully.');
+        //return redirect()->route('client_corr.client.index')->with('success', 'Client has been updated successfully.');
     }
 
     /**

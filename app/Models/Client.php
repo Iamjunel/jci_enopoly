@@ -17,6 +17,12 @@ class Client extends Model
     public function company(){
         return $this->belongsTo(Company::class);
     }
+    public function store_details(){
+        return $this->hasMany(StoreDetail::class);
+    }
+    public function payment_details(){
+        return $this->hasMany(PaymentDetail::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class,'added_by','id');
