@@ -99,7 +99,7 @@ class ClientCorrController extends Controller
             $client->update($request->post());
         }        
 
-        return redirect()->route('client_corr.dashboard')->with('success', 'Client has been updated successfully.');
+        return redirect()->route('client_corr.client.index')->with('success', 'Client has been updated successfully.');
     }
 
     /**
