@@ -130,7 +130,7 @@ class ClientController extends Controller
             $client->update($request->post());
         }        
 
-        //return redirect()->route('client_corr.client.index')->with('success', 'Client has been updated successfully.');
+        return redirect()->route('client_corr.client.index')->with('success', 'Client has been updated successfully.');
     }
 
     /**
