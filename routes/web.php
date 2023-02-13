@@ -99,14 +99,19 @@ Route::group(['middleware' => ['caller'], 'prefix' => 'caller'], function (){
     Route::get('supplier/report', [App\Http\Controllers\CallerController::class, 'supplier_report'])->name('caller.supplier.report');
     Route::post('supplier/report-with-date', [App\Http\Controllers\CallerController::class, 'supplier_report_with_date'])->name('caller.supplier.report-with-date');
     Route::post('supplier/update/{id}', [App\Http\Controllers\SupplierController::class, 'update'])->name('caller.supplier.update');
-    /*
-    Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client_corr.client.index');
-    Route::get('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('client_corr.company.index');
-    Route::post('company/store', [App\Http\Controllers\CompanyController::class, 'store'])->name('client_corr.company.store');
-    Route::post('company/update/{id}', [App\Http\Controllers\CompanyController::class, 'update'])->name('client_corr.company.update');
-    Route::post('company/destroy/{id}', [App\Http\Controllers\CompanyController::class, 'destroy'])->name('client_corr.company.destroy');
-    Route::get('client/report', [App\Http\Controllers\ClientController::class, 'client_report'])->name('client_corr.client.report'); */
 });
+
+Route::group(['middleware' => ['product_analyzer'], 'prefix' => 'product_analyzer'], function (){    
+    Route::get('dashboard', [App\Http\Controllers\ProductAnalyzderController::class, 'index'])->name('pa_dashboard');
+    Route::get('/', [App\Http\Controllers\ProductAnalyzerController::class, 'index'])->name('pa_product.index');
+    Route::get('create', [App\Http\Controllers\ProductAnalyzerController::class, 'create'])->name('pa_product.create');
+    Route::get('edit/{id}', [App\Http\Controllers\ProductAnalyzerController::class, 'edit'])->name('pa_product.edit');
+    Route::post('store', [App\Http\Controllers\ProductAnalyzerController::class, 'store'])->name('pa_product.store');
+    Route::post('update/{id}', [App\Http\Controllers\ProductAnalyzerController::class, 'update'])->name('pa_product.update');
+   // Route::post('client/update_dashboard/{id}', [App\Http\Controllers\ProductAnalyzerCorrController::class, 'update'])->name('client_dashboard.update');
+
+});
+
 
 
 //Update User Details
