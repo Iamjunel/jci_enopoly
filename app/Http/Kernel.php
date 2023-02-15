@@ -70,5 +70,7 @@ class Kernel extends HttpKernel
         'caller'     => \App\Http\Middleware\CallerMiddleware::class,
         'accounting'  => \App\Http\Middleware\AccountingMiddleware::class,
         'product_analyzer'  => \App\Http\Middleware\ProductAnalyzerMiddleware::class,
+        'purchaser'  => \App\Http\Middleware\PurchaserMiddleware::class,
+        'qa'  => \App\Http\Middleware\QAMiddleware::class,
     ];
 }

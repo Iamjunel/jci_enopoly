@@ -32,6 +32,10 @@
             @include('layouts.accounting_sidebar')
         @elseif(Auth::user()->type == 'product_analyzer')
             @include('layouts.pa_sidebar')
+        @elseif(Auth::user()->type == 'qa')
+            @include('layouts.qa_sidebar')
+        @elseif(Auth::user()->type == 'purchaser')
+            @include('layouts.purchaser_sidebar')
         @endif
         <!-- ============================================================== -->
         <!-- Start right Content here -->

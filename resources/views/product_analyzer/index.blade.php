@@ -36,11 +36,12 @@
                                 <th>Multipack</th>
                                 <th>Final Supplier Cost</th>
                                 <th>Selling Price</th>
-                                <th>FBA Fees</th>
+                                <th>FBA/WFS Fees</th>
                                 <th>Label Cost</th>
                                 <th>Shipping Fee</th>
                                 <th>Prep Fee</th>
                                 <th>Inbound Shipment</th>
+                                <th>Total Cost</th>
                                 <th>Profit/Piece</th>
                                 <th>Total Profit</th>
                                 <th>Margin</th>
@@ -49,7 +50,6 @@
                                 <th>Process</th>
                                 <th>Agent</th>
                                 <th>Status</th>
-                                <th>Added by</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -76,9 +76,8 @@
                                 <td>{{$client->monthly_sales}}</td>
                                 <td>{{$client->compt_sellers}}</td>
                                 <td>{{$client->process}}</td>
+                                <td>{{$client->agent}}</td>
                                 <td>{{$client->status}}</td>
-                                
-                                <td>{{$client->user->name}}</td>
                                 <td> <!--<a id="view" href="#" data-bs-toggle="modal" data-bs-target="#view-{{$client->id}}"><i class="bx bx-xs bx-user mr-2"></i> </a> --> 
                                     <a id="view" href="product_analyzer/edit/{{$client->id}}" ><i class="bx bx-xs bx-pencil mr-1"></i></a>
                                  </td>

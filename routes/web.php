@@ -102,12 +102,27 @@ Route::group(['middleware' => ['caller'], 'prefix' => 'caller'], function (){
 });
 
 Route::group(['middleware' => ['product_analyzer'], 'prefix' => 'product_analyzer'], function (){    
-    Route::get('dashboard', [App\Http\Controllers\ProductAnalyzderController::class, 'index'])->name('pa_dashboard');
+    Route::get('dashboard', [App\Http\Controllers\ProductAnalyzerController::class, 'index'])->name('pa_dashboard');
     Route::get('/', [App\Http\Controllers\ProductAnalyzerController::class, 'index'])->name('pa_product.index');
     Route::get('create', [App\Http\Controllers\ProductAnalyzerController::class, 'create'])->name('pa_product.create');
     Route::get('edit/{id}', [App\Http\Controllers\ProductAnalyzerController::class, 'edit'])->name('pa_product.edit');
     Route::post('store', [App\Http\Controllers\ProductAnalyzerController::class, 'store'])->name('pa_product.store');
     Route::post('update/{id}', [App\Http\Controllers\ProductAnalyzerController::class, 'update'])->name('pa_product.update');
+   // Route::post('client/update_dashboard/{id}', [App\Http\Controllers\ProductAnalyzerCorrController::class, 'update'])->name('client_dashboard.update');
+
+});
+
+Route::group(['middleware' => ['qa'], 'prefix' => 'qa'], function (){    
+    Route::get('dashboard', [App\Http\Controllers\QAController::class, 'index'])->name('qa_dashboard');
+    Route::get('/', [App\Http\Controllers\QAController::class, 'index'])->name('qa_product.index');
+    Route::post('update/{id}', [App\Http\Controllers\QAController::class, 'update'])->name('qa_product.update');
+   // Route::post('client/update_dashboard/{id}', [App\Http\Controllers\ProductAnalyzerCorrController::class, 'update'])->name('client_dashboard.update');
+
+});
+Route::group(['middleware' => ['purchaser'], 'prefix' => 'purchaser'], function (){    
+    Route::get('dashboard', [App\Http\Controllers\PurchaserController::class, 'index'])->name('purchaser_dashboard');
+    Route::get('/', [App\Http\Controllers\PurchaserController::class, 'index'])->name('purchaser_product.index');
+    Route::post('update/{id}', [App\Http\Controllers\PurchaserController::class, 'update'])->name('purchaser_product.update');
    // Route::post('client/update_dashboard/{id}', [App\Http\Controllers\ProductAnalyzerCorrController::class, 'update'])->name('client_dashboard.update');
 
 });

@@ -17,9 +17,9 @@
                     </a>
                  </li>
                  <li>
-                    <a href="{{route('pa_product.index')}}" class="waves-effect">
+                    <a href="{{route('purchaser_product.index')}}" class="waves-effect">
                         <i class="bx bx-layer"></i>
-                        <span key="t-chat">Products</span>
+                        <span key="t-chat">Good To Order Products</span>
                     </a>
                  </li>
                  

@@ -139,7 +139,8 @@
                             <div class="col-lg-4 col-sm-6">
                                 <div class="mb-3">
                                     <label for="basicpill-lastname-input">Agent</label>
-                                    <input type="text" class="form-control" id="basicpill-lastname-input"  name="agent" placeholder="Enter the name of the agent">
+                                    <input type="text" class="form-control" id="basicpill-lastname-input" value="{{Auth::user()->name}}" name="agent" placeholder="Enter the name of the agent" disabled>
+                            
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-6">
@@ -189,6 +190,7 @@
 
                     </section>
                      <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
+                      <input type="hidden" name="agent" value="{{Auth::user()->name}}"/>
                      <input type="hidden" name="qa_status" value="To Review"/>
                      <div class="d-flex justify-content-end">
                      <a href="{{route('pa_product.index')}}" class="btn btn-light px-4 py-2 mx-1" >Cancel</a>
