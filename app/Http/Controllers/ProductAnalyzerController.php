@@ -22,7 +22,7 @@ class ProductAnalyzerController extends Controller
     public function index()
     {
         //
-        $products = Product::all();
+        $products = Product::with('user')->orderBy('id','desc')->get();
         return view('product_analyzer.index',compact('products'));
     }
 
@@ -34,6 +34,7 @@ class ProductAnalyzerController extends Controller
     public function create()
     {
         //
+        return view('product_analyzer.create');
     }
 
     /**
@@ -45,6 +46,9 @@ class ProductAnalyzerController extends Controller
     public function store(Request $request)
     {
         //
+        Product::create($request->post());
+
+        return redirect()->route('pa_product.index')->with('success', 'Product has been created successfully.');
     }
 
     /**
@@ -67,6 +71,11 @@ class ProductAnalyzerController extends Controller
     public function edit($id)
     {
         //
+
+        $product = Product::with('user')->where('id',$id)->first();
+        
+        
+        return view('product_analyzer.edit', compact('product'));
     }
 
     /**
@@ -79,6 +88,9 @@ class ProductAnalyzerController extends Controller
     public function update(Request $request, $id)
     {
         //
+         $product = Product::where('id',$id)->first();
+         $product->update($request->post());
+         return redirect()->route('pa_product.index')->with('success', 'Product has been updated successfully.');
     }
 
     /**

@@ -1,162 +1,199 @@
 @extends('layouts.master')
 
-@section('title') Onboarding Client @endsection
+@section('title') Product @endsection
 
 
 
 @section('content')
 
     @component('components.breadcrumb')
-        @slot('li_1') Client Corr @endslot
-        @slot('title') Create Onboarding Client @endslot
+        @slot('li_1') Product Analyzer @endslot
+        @slot('title') Create Product @endslot
     @endcomponent
     <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                 <p class="card-title-desc"> Onboarding Clients are the clients approved by the company to be part of.
-                    </p>
-                <form class="repeater" action="../client/store" enctype="multipart/form-data" method="POST">
+                
+                <form  action="store" method="POST">
                    
                     <section class="border-bottom py-2">
-                         <h3>Client Details</h3>
+                         <h3>Product Details</h3>
                         @csrf
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-firstname-input">First name</label>
-                                    <input type="text" class="form-control" id="basicpill-firstname-input" name="firstname" placeholder="Enter Your First Name">
+                                    <label for="basicpill-firstname-input">No. Of Orders</label>
+                                    <input type="number" class="form-control" id="basicpill-firstname-input" name="order" placeholder="0">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Last name</label>
-                                    <input type="text" class="form-control" id="basicpill-lastname-input" name="lastname" placeholder="Enter Your Last Name">
+                                    <label for="basicpill-lastname-input">Multipack</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input" name="multipack" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Supplier Cost($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input" name="supplier_cost" placeholder="0.0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Final Supplier Cost($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input" name="final_supplier_cost" placeholder="0.0">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- second row -->
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-firstname-input">Selling Price($)</label>
+                                    <input type="number" class="form-control" id="basicpill-firstname-input" name="selling_price" placeholder="0.0" >
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">FBA Fees($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input" name="fba_fees" placeholder="0.0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Label Cost($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input"  name="label_cost" placeholder="0.0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Shipping Fee($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input" name="shipping_fee" placeholder="0.0">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- third row -->
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-firstname-input">Prep Fee($)</label>
+                                    <input type="number" class="form-control" id="basicpill-firstname-input" name="prep_fee" placeholder="0.0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Inbound Shipment($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input" name="inbound_shipment" placeholder="0.0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Compt. Sellers</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input"  name="compt_sellers" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Monthly Sales($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input" name="monthly_sales" placeholder="0.0">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="basicpill-phoneno-input">Phone</label>
-                                    <input type="text" class="form-control" id="basicpill-phoneno-input" name="phone" placeholder="Enter Your Phone No.">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="basicpill-email-input">Email</label>
-                                    <input type="email" class="form-control" id="basicpill-email-input" name="email" placeholder="Enter Your Email ID">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="col-md-6 ">Company</label>
-                                    <div class="col-md-12">
-                                        <select class="form-select" name="company_id">
-                                            @foreach ($companies as $company)
-                                                <option value="{{$company->id}}">{{ucfirst($company->name)}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                
-                                <div class="mb-3">
-                                        <label for="basicpill-address-input">Address</label>
-                                        <input type="text" class="form-control" name="address" id="basicpill-email-input" placeholder="Enter Your Home Address" >
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="col-md-6 col-form-label">Remote Desktop Application(RDA)</label>
-                                        <input type="text" class="form-control" name="rdia" id="basicpill-email-input" placeholder="Enter Remote Desktop Application" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="col-md-6 col-form-label">Remote Desktop Application(RDA) Id</label>
-                                        <input type="text" class="form-control" name="rdia_id" id="basicpill-email-input" placeholder="Enter Remote Desktop Application Id" >
-                                    </div>
-                                </div>
-                            </div>
-                                                                             
-                    </section>
-                    
-                    <section class="border-bottom py-2">
-                        <h3>Facebook Platform Details</h3>
-                        <div class="row">
-                                
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="col-md-6 col-form-label">Email Address:</label>
-                                        <input type="text" class="form-control" name="fb_email_address" id="basicpill-email-input" placeholder="Enter Your Email ID">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="col-md-6 col-form-label">Password</label>
-                                        <input type="text" class="form-control" name="fb_password" id="basicpill-email-input" placeholder="Enter Your Password">
-                                    </div>
-                                </div>
-                            </div>
                     </section>
                     <section class="border-bottom py-2">
-                    <h3>Store Details</h3>
-                    <div data-repeater-list="store">
-                        <div data-repeater-item class="row">
+                        <h4>Auto Generated Fields(In-Progress)</h4>
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Total Cost($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input"  name="total_cost" placeholder="0.0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-firstname-input">Profit/Piece($)</label>
+                                    <input type="number" class="form-control" id="basicpill-firstname-input" name="profit_per_piece" placeholder="0.0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Total Profit($)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input" name="total_profit" placeholder="0.0">
+                                </div>
+                            </div>
                             
-                                <div class="mb-3 col-lg-2">
-                                    <label class="col-md-12 ">Company/Platform</label>
-                                    <div class="col-md-12">
-                                        <select class="form-select" id="payment_method" name="platform">
-                                            <option value="Amazon" selected>Amazon</option>
-                                            <option value="Walmart">Walmart</option>
-                                            
-            
-                                        </select>
-                                    </div>
-                                </div> 
-                                <div class="mb-3 col-lg-2">
-                                <label for="name">Name</label>
-                                <input type="text" id="name"  name="store_name" class="form-control" placeholder="Enter Store Name" />
-                            </div>
-
-                            <div class="mb-3 col-lg-2">
-                                <label for="email">Website Link:</label>
-                                <input type="text" id="message" class="form-control" name="store_line" placeholder="http://example.com" />
-                            </div>
-
-                            <div class="mb-3 col-lg-2">
-                                <label for="email">Email/Username :</label>
-                                <input type="text" id="email" class="form-control" name="store_username" placeholder="Enter Store Email/Username" />
-                            </div>
-
-                            <div class="mb-3 col-lg-2">
-                                <label for="subject">Password</label>
-                                <input type="text" id="subject" class="form-control" name="store_password" placeholder="Enter Store Password" />
-                            </div>
-
-                            <div class="col-lg-2 align-self-center">
-                                <div class="d-grid">
-                                    <input data-repeater-delete type="button" class="btn btn-primary" value="Delete" />
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Margin(%)</label>
+                                    <input type="number" class="form-control" id="basicpill-lastname-input"  name="margin" placeholder="0">
                                 </div>
                             </div>
                         </div>
 
-                    </div>
-                    <input data-repeater-create type="button" class="btn btn-success mt-3 mt-lg-0" value="Add" />
-                    </section> 
-                    <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
-                                                <div class="d-flex justify-content-end">
-                                                <a href="{{route('client_corr.client.index')}}" class="btn btn-light px-4 mx-1" >Cancel</a>
-                                                <button type="submit" name="add_client" class="btn btn-primary px-4 mx-1">Save</button>
-                                                </div>
+                    </section>
+                    <section class="border-bottom py-2">
+                        <h4>Other Details</h4>
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Agent</label>
+                                    <input type="text" class="form-control" id="basicpill-lastname-input"  name="agent" placeholder="Enter the name of the agent">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="mb-3">
+                                    <label class="col-md-6 ">Process</label>
+                                    <div class="col-md-12">
+                                        <select class="form-select" name="process">
+                                                <option value="RA/TA">RA/TA</option>
+                                                <option value="Manual">Manual</option>
+                                                <option value="Software">Software</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="mb-3">
+                                    <label class="col-md-6 ">Status</label>
+                                    <div class="col-md-12">
+                                        <select class="form-select" name="status">
+                                                <option value="In-Stock">In-Stock</option>
+                                                <option value="Out of Stock">Out of Stock</option>
+                                                <option value="NP">NP</option>
+                                                <option value="SA">SA</option>
+                                                <option value="To Review">To Review</option>
+                                                <option value="RB">RB</option>
+                                                <option value="No Reviews">No Reviews</option>
+                                                <option value="No Ratings">No Ratings</option>
+                                                <option value="Low Margin">Low Margin</option>
+                                                <option value="Low Monthly Sales">Low Monthly Sales</option>
+                                                <option value="Hazmat">Hazmat</option>
+                                                <option value="Electronics">Electronics</option>
+                                                <option value="NA Amazon">NA Amazon</option>
+                                                <option value="Variations">Variations</option>
+                                                <option value="Books">Books</option>
+                                                <option value="Too Heavy">Too Heavy</option>
+                                                <option value="No Keepa">No Keepa</option>
+                                                <option value="NFOWP">NFOWP</option>
+                                                <option value="NFSR">NFSR</option>
+                                                <option value="Fragile">Fragile</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        
+                        </div>
+
+                    </section>
+                     <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
+                     <input type="hidden" name="qa_status" value="To Review"/>
+                     <div class="d-flex justify-content-end">
+                     <a href="{{route('pa_product.index')}}" class="btn btn-light px-4 py-2 mx-1" >Cancel</a>
+                     <button type="submit" name="add_product" class="btn btn-primary px-4 py-2 mx-1">Save</button>
+                      </div>
                 </form>
             </div>
         </div>

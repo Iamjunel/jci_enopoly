@@ -27,6 +27,7 @@ return new class extends Migration
             $table->float('prep_fee',10,3)->nullable();
             $table->float('inbound_shipment',10,3)->nullable();
             $table->float('profit_per_piece',10,3)->nullable();
+            $table->float('total_cost',10,3)->nullable();
             $table->float('total_profit',10,3)->nullable();
             $table->float('margin',10,3)->nullable();
             $table->float('monthly_sales',10,3)->nullable();
@@ -49,5 +50,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('products');
     }
 };
