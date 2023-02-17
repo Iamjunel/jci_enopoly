@@ -23,6 +23,59 @@
                         <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
+                                    <label for="amazon_title">Amazon Title</label>
+                                    <input type="text" class="form-control" id="amazon_title" name="amazon_title" value="{{$product->amazon_title}}" placeholder="Enter amazon title" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="amazon_link">Amazon Link</label>
+                                    <input type="text" class="form-control" id="amazon_link" name="amazon_link" value="{{$product->amazon_link}}" placeholder="Enter amazon link"  required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="asin">ASIN</label>
+                                    <input type="text" class="form-control" id="asin" name="asin" value="{{$product->asin}}" placeholder="Enter ASIN" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="upc">UPC</label>
+                                    <input type="text" class="form-control" id="upc" name="upc"  value="{{$product->upc}}" placeholder="Enter UPC" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="sku">SKU</label>
+                                    <input type="text" class="form-control" id="sku" name="sku" value="{{$product->sku}}" placeholder="Enter SKU" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="category">Category</label>
+                                    <input type="text" class="form-control" id="category" name="category" value="{{$product->category}}" placeholder="Enter Category" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="supplier">Supplier</label>
+                                    <input type="text" class="form-control" id="supplier" name="supplier" value="{{$product->supplier}}" placeholder="Enter Supplier" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="supplier_link">Supplier Link</label>
+                                    <input type="text" class="form-control" id="supplier_link" name="supplier_link" value="{{$product->supplier_link}}" placeholder="Enter Supplier Link" required>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
                                     <label for="basicpill-firstname-input">No. Of Orders</label>
                                     <input type="number" class="form-control" id="basicpill-firstname-input" value="{{$product->order}}" name="order" placeholder="0">
                                 </div>
@@ -41,19 +94,13 @@
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Final Supplier Cost($)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->final_supplier_cost}}" name="final_supplier_cost" placeholder="0.0">
+                                    <label for="selling_price">Selling Price($)</label>
+                                    <input type="number" class="selling_price form-control" id="selling_price" name="selling_price" value="{{$product->selling_price}}" onblur="getProfitPerPiece();" placeholder="0.0">
                                 </div>
                             </div>
                         </div>
                         <!-- second row -->
                         <div class="row">
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="mb-3">
-                                    <label for="basicpill-firstname-input">Selling Price($)</label>
-                                    <input type="number" class="form-control" id="basicpill-firstname-input" value="{{$product->selling_price}}" name="selling_price" placeholder="0.0" >
-                                </div>
-                            </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
                                     <label for="basicpill-lastname-input">FBA Fees($)</label>
@@ -72,15 +119,16 @@
                                     <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->shipping_fee}}" name="shipping_fee" placeholder="0.0">
                                 </div>
                             </div>
-                        </div>
-                        <!-- third row -->
-                        <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
                                     <label for="basicpill-firstname-input">Prep Fee($)</label>
                                     <input type="number" class="form-control" id="basicpill-firstname-input" value="{{$product->prep_fee}}" name="prep_fee" placeholder="0.0">
                                 </div>
                             </div>
+                        </div>
+                        <!-- third row -->
+                        <div class="row">
+                            
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
                                     <label for="basicpill-lastname-input">Inbound Shipment($)</label>
@@ -99,50 +147,13 @@
                                     <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->monthly_sales}}" name="monthly_sales" placeholder="0.0">
                                 </div>
                             </div>
-                        </div>
-
-                    </section>
-                    <section class="border-bottom py-2">
-                        <h4>Auto Generated Fields(In-Progress)</h4>
-                        <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Total Cost($)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->total_cost}}" name="total_cost" placeholder="0.0">
+                                    <label for="mark_up">Mark Up(%)</label>
+                                    <input type="number" class="form-control" id="mark_up" name="mark_up" value="{{$product->mark_up}}" onblur="getMarkUpPrice();" placeholder="0.0" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
-                                <div class="mb-3">
-                                    <label for="basicpill-firstname-input">Profit/Piece($)</label>
-                                    <input type="number" class="form-control" id="basicpill-firstname-input" value="{{$product->profit_per_piece}}" name="profit_per_piece" placeholder="0.0" >
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Total Profit($)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->total_profit}}" name="total_profit" placeholder="0.0">
-                                </div>
-                            </div>
-                            
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Margin(%)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->margin}}" name="margin" placeholder="0.0 %">
-                                </div>
-                            </div>
-                        </div>
-
-                    </section>
-                    <section class="border-bottom py-2">
-                        <h4>Other Details</h4>
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Agent</label>
-                                    <input type="text" class="form-control" id="basicpill-lastname-input" value="{{$product->agent}}"  name="agent" placeholder="Enter the name of the agent">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
                                 <div class="mb-3">
                                     <label class="col-md-6 ">Process</label>
                                     <div class="col-md-12">
@@ -154,7 +165,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
                                     <label class="col-md-6 ">Status</label>
                                     <div class="col-md-12">
@@ -184,11 +195,79 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                        
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label class="col-md-12 ">Inventory Status</label>
+                                    <div class="col-md-12">
+                                        <select class="form-select" name="inventory_status">
+                                                <option value="NA">NA</option>
+                                                
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </section>
+                    <section class="border-bottom py-2">
+                        <h4>Auto Generated Fields</h4>
+                        <div class="row">
+                             
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="final_supplier_cost">Final Supplier Cost($)</label>
+                                    <input type="number" id="final_supplier_cost" class=" final_supplier_cost form-control" value="{{$product->final_supplier_cost}}"  id="basicpill-lastname-input" name="final_supplier_cost" placeholder="0.0" disabled>
+                                    <input type="hidden"  class=" final_supplier_cost form-control"  name="final_supplier_cost" value="{{$product->final_supplier_cost}}" >
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="total_cost">Total Cost($)</label>
+                                    <input type="number" class="total_cost form-control" name="total_cost" placeholder="0.0" value="{{$product->total_cost}}" disabled>
+                                    <input type="hidden" class="total_cost form-control"  name="total_cost" value="{{$product->total_cost}}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="profit_per_piece ">Profit/Piece($)</label>
+                                    <input type="number" class="profit_per_piece form-control" id="profit_per_piece" name="profit_per_piece" value="{{$product->profit_per_piece}}" placeholder="0.0" disabled>
+                                    <input type="hidden" class="profit_per_piece form-control"  name="profit_per_piece" placeholder="0.0" value="{{$product->profit_per_piece}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="total_profit">Total Profit($)</label>
+                                    <input type="number" class="total_profit form-control" id="total_profit" name="total_profit" value="{{$product->total_profit}}" placeholder="0.0" disabled>
+                                    <input type="hidden" class="total_profit form-control" id="" name="total_profit" placeholder="0.0" value="{{$product->total_profit}}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="margin">Margin(%)</label>
+                                    <input type="number" class="margin form-control" id="margin"  name="margin" value="{{$product->margin}}" placeholder="0" disabled>
+                                    <input type="hidden" class="margin form-control" id=""  name="margin" value="{{$product->margin}}" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="mark_up_price">Mark-Up Price($)</label>
+                                    <input type="number" class="mark_up_price form-control" id="mark_up_price"  name="mark_up_price" value="{{$product->mark_up_price}}" placeholder="0" disabled>
+                                    <input type="hidden" class="mark_up_price form-control" id=""  name="mark_up_price" value="{{$product->mark_up_price}}" placeholder="0">
+                                </div>
+                            </div>
+                             <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Agent</label>
+                                    <input type="text" class="form-control" id="basicpill-lastname-input" value="{{$product->user->name}}" name="agent" placeholder="Enter the name of the agent" disabled>
+                                     <input type="hidden" class="form-control" id="basicpill-lastname-input" value="{{Auth::user()->name}}" name="agent" placeholder="Enter the name of the agent" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                   
                      <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
                      <input type="hidden" name="qa_status" value="To Review"/>
                      <div class="d-flex justify-content-end">
@@ -224,6 +303,58 @@
 
         console.log(text);
 });
+
+        function getFinalSupplierCost(){
+                var multipack = $('#multipack').val();
+                var supplier_cost = $('#supplier_cost').val();
+                var total = multipack * supplier_cost;
+
+                $('.final_supplier_cost').val(total.toFixed(2));
+            }
+            function getMarkUpPrice(){
+                var markup = $('#mark_up').val();
+                var final_supplier_cost = $('.final_supplier_cost').val();
+                var total = markup * final_supplier_cost;
+
+                $('.mark_up_price').val(total.toFixed(2));
+            }
+
+            function getTotalCost() {
+                var label_cost = $('#label_cost').val();
+                var fba_fees = $('#fba_fees').val();
+                var shipping_fee = $('#shipping_fee').val();
+                var prep_fee = $('#prep_fee').val();
+                var inbound_shipment = $('#inbound_shipment').val();
+                var final_supplier_cost = $('.final_supplier_cost').val();
+                console.log(fba_fees);
+                console.log(shipping_fee);
+                console.log(prep_fee);
+                console.log(inbound_shipment);
+                console.log(final_supplier_cost);
+
+                var total_cost = parseFloat(label_cost) + parseFloat(fba_fees) + parseFloat(shipping_fee) + parseFloat(prep_fee) + parseFloat(inbound_shipment) + parseFloat(final_supplier_cost);
+
+                $('.total_cost').val(total_cost.toFixed(2));
+
+                getProfitPerPiece();
+            }
+
+            function getProfitPerPiece(){
+                var selling_price = $('.selling_price').val();
+                var total_cost = $('.total_cost').val();
+                var profit =  parseFloat(selling_price) -  parseFloat(total_cost);
+                $('.profit_per_piece').val(profit.toFixed(2));
+
+                var order = $('#order').val();
+                var total_profit = order * parseFloat(profit) ;
+
+                $('.total_profit').val(total_profit.toFixed(2));
+
+                var margin = profit/total_cost;
+
+                $('.margin').val(margin.toFixed(1))
+            }
+            
         </script>
     
 @endsection
