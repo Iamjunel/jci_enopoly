@@ -397,14 +397,42 @@
                                                     <p class="text-center">No Store Details Available.</p>
                                                     @endif
                                                     </section>
-                                                    <h3>Payment Details(In-Progress)</h3>
-                                                        <section>
+                                                   <section class="border-bottom py-2">
+                                                    <h3>Payment Details</h3>
+                                                             @if(count($client->payment_details))
+                                                            @foreach($client->payment_details as $key => $pay)
+                                                           
                                                             
+                                                            <div class="row border-bottom">
+                                                                <h5>{{$pay->type}}</h5>
+                                                                    <div class="col-lg-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-6 col-form-label">Name</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value= "{{$pay->name}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-12 col-form-label">Card No./ Account No.</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{str_repeat("x", (strlen($pay->number) - 3)).substr($pay->number,-3,3)}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-5">
+                                                                        <div class="mb-3">
+                                                                            <label class="col-md-12 col-form-label">Billing Address</label>
+                                                                            <input type="text" class="form-control" id="basicpill-email-input" placeholder="Enter Your Email ID" value="{{$pay->billing_address}}" disabled>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                </div>
+                                                        
+                                                                
+                                                                @endforeach  
+                                                                 @else 
+                                                    <p class="text-center">No Payment Details Available.</p>
+                                                    @endif  
                                                         </section>
-                                                        
-                                                        
-                                                            
-                                                        
                                                     </div>
 
                                                 </div>
