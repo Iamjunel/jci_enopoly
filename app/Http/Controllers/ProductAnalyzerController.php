@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Supplier;
 class ProductAnalyzerController extends Controller
 {
     /**
@@ -23,7 +24,8 @@ class ProductAnalyzerController extends Controller
     {
         //
         $products = Product::with('user')->orderBy('id','desc')->get();
-        return view('product_analyzer.index',compact('products'));
+        $supplier = Supplier::where('status','=','Approved')->get();
+        return view('product_analyzer.index',compact('products','supplier'));
     }
 
     /**
@@ -34,7 +36,8 @@ class ProductAnalyzerController extends Controller
     public function create()
     {
         //
-        return view('product_analyzer.create');
+        $supplier = Supplier::where('status','=','Approved')->get();
+        return view('product_analyzer.create',compact('supplier'));
     }
 
     /**
@@ -73,9 +76,9 @@ class ProductAnalyzerController extends Controller
         //
 
         $product = Product::with('user')->where('id',$id)->first();
+        $supplier = Supplier::where('status','=','Approved')->get();
         
-        
-        return view('product_analyzer.edit', compact('product'));
+        return view('product_analyzer.edit', compact('product','supplier'));
     }
 
     /**

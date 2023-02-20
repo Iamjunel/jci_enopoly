@@ -31,6 +31,9 @@
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                         <thead>
                             <tr>
+                                <th>Amazon Title</th>
+                                <th>Amazon Link</th>
+                                <th>ASIN</th>
                                 <th>No. Of Orders</th>
                                 <th>Supplier Cost</th>
                                 <th>Multipack</th>
@@ -59,8 +62,11 @@
                         <tbody>
                             @foreach ($products as $client)
                             <tr>
+                                <td>{{$client->amazon_title}}</td>
+                                <td>{{$client->amazon_link}}</td>
+                                <td>{{$client->asin}}</td>
                                 <td>{{$client->order}}</td>
-                                 <td>{{$client->supplier_cost}}</td>
+                                <td>{{$client->supplier_cost}}</td>
                                 <td>{{$client->multipack}}</td>
                                 <td>{{$client->final_supplier_cost}}</td>
                                 <td>{{$client->selling_price}}</td>

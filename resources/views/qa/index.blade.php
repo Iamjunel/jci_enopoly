@@ -26,6 +26,9 @@
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                         <thead>
                             <tr>
+                                <th>Amazon Title</th>
+                                <th>Amazon Link</th>
+                                <th>ASIN</th>
                                 <th>No. Of Orders</th>
                                 <th>Supplier Cost</th>
                                 <th>Multipack</th>
@@ -46,6 +49,9 @@
                         <tbody>
                             @foreach ($products as $product)
                             <tr class="{{($product->qa_status == 'Good To Order')?'bg-info bg-opacity-10' : ''}}">
+                                <td>{{$product->amazon_title}}</td>
+                                <td>{{$product->amazon_link}}</td>
+                                <td>{{$product->asin}}</td>
                                 <td>{{$product->order}}</td>
                                  <td>{{$product->supplier_cost}}</td>
                                 <td>{{$product->multipack}}</td>
@@ -147,15 +153,23 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
-                                <div class="mb-3">
-                                    <label for="supplier">Supplier</label>
-                                    <input type="text" class="form-control" id="supplier" name="supplier" value="{{$product->supplier}}" placeholder="Enter Supplier" required>
+                               <div class="mb-3">
+                                    <label class="col-md-6 ">Supplier</label>
+                                    <div class="col-md-12">
+                                        <select class="form-select" name="supplier" id="supplier">
+                                            @foreach ($supplier as $sup )
+                                                <option value="{{$sup->company_name}}" {{($product->supplier == $sup->company_name)? 'selected': ''}} data-link="{{$sup->website_link}}">{{$sup->company_name}}</option>
+                                            @endforeach
+                                    
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="supplier_link">Supplier Link</label>
-                                    <input type="text" class="form-control" id="supplier_link" name="supplier_link" value="{{$product->supplier_link}}" placeholder="Enter Supplier Link" required>
+                                    <label for="supplier_link">Supplier Link <a href="" id="supplier_anchor" class="" target="_blank"><i class="bx bx-link-external"></i></a></label>
+                                    <input type="text" class="supplier_link form-control" id="supplier_link"  name="supplier_link" value="{{$product->supplier_link}}" placeholder="Enter Supplier Link" required disabled>
+                                    <input type="hidden" class="supplier_link form-control"  name="supplier_link" value="{{$product->supplier_link}}">
                                 </div>
                             </div>
                             
@@ -165,20 +179,21 @@
                         <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-firstname-input">No. Of Orders</label>
-                                    <input type="number" class="form-control" id="basicpill-firstname-input" value="{{$product->order}}" name="order" placeholder="0">
+                                    <label for="order">No. Of Orders</label>
+                                    <input type="number" class="form-control" id="order" name="order" placeholder="0" value="{{$product->order}}" onblur="getTotalCost();" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Multipack</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->multipack}}" name="multipack" placeholder="0">
+                                    <label for="multipack">Multipack</label>
+                                    <input type="number" id="multipack" class="form-control"  name="multipack" placeholder="0" value="{{$product->multipack}}" onkeyup="getFinalSupplierCost();" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Supplier Cost($)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->supplier_cost}}" name="supplier_cost" placeholder="0.0">
+                                    <label for="supplier_cost">Supplier Cost($)</label>
+                                    <input type="number" id="supplier_cost" class="form-control" name="supplier_cost"  placeholder="0.0" value="{{$product->supplier_cost}}" onblur="getFinalSupplierCost();" required>
+                                    
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
@@ -187,31 +202,34 @@
                                     <input type="number" class="selling_price form-control" id="selling_price" name="selling_price" value="{{$product->selling_price}}" onblur="getProfitPerPiece();" placeholder="0.0">
                                 </div>
                             </div>
+                            
+                            
                         </div>
                         <!-- second row -->
                         <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">FBA Fees($)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->fba_fees}}"  name="fba_fees" placeholder="0.0">
+                                    <label for="fba_fees">FBA Fees($)</label>
+                                    <input type="number" class="form-control" id="fba_fees" name="fba_fees" value="{{$product->fba_fees}}" onblur="getTotalCost();" placeholder="0.0" required>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="label_cost">Label Cost($)</label>
+                                    <input type="number" class="form-control" id="label_cost"  name="label_cost" value="{{$product->label_cost}}"  onblur="getTotalCost();" placeholder="0.0" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Label Cost($)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->label_cost}}"  name="label_cost" placeholder="0.0">
+                                    <label for="shipping_fee">Shipping Fee($)</label>
+                                    <input type="number" class="form-control" id="shipping_fee" onblur="getTotalCost();" value="{{$product->shipping_fee}}" name="shipping_fee" placeholder="0.0" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Shipping Fee($)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->shipping_fee}}" name="shipping_fee" placeholder="0.0">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="mb-3">
-                                    <label for="basicpill-firstname-input">Prep Fee($)</label>
-                                    <input type="number" class="form-control" id="basicpill-firstname-input" value="{{$product->prep_fee}}" name="prep_fee" placeholder="0.0">
+                                    <label for="prep_fee">Prep Fee($)</label>
+                                    <input type="number" class="form-control" id="prep_fee" onblur="getTotalCost();" name="prep_fee" value="{{$product->prep_fee}}" placeholder="0.0" required>
                                 </div>
                             </div>
                         </div>
@@ -220,8 +238,8 @@
                             
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="basicpill-lastname-input">Inbound Shipment($)</label>
-                                    <input type="number" class="form-control" id="basicpill-lastname-input" value="{{$product->inbound_shipment}}" name="inbound_shipment" placeholder="0.0">
+                                    <label for="inbound_shipment">Inbound Shipment($)</label>
+                                    <input type="number" class="form-control" id="inbound_shipment" value="{{$product->inbound_shipment}}" onblur="getTotalCost();" name="inbound_shipment" placeholder="0.0" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
@@ -353,6 +371,13 @@
                                      <input type="hidden" class="form-control" id="basicpill-lastname-input" value="{{Auth::user()->name}}" name="agent" placeholder="Enter the name of the agent" disabled>
                                 </div>
                             </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Date Added</label>
+                                    <input type="date" class="form-control" id="basicpill-lastname-input" value="{{date('Y-m-d',strtotime($product->created_at))}}" name="agent" placeholder="Enter the name of the agent" disabled>
+                            
+                                </div>
+                            </div>
                         </div>
 
                     </section>
@@ -431,6 +456,9 @@
                 var total = multipack * supplier_cost;
 
                 $('.final_supplier_cost').val(total.toFixed(2));
+                
+                getTotalCost();
+                getMarkUpPrice();
             }
             function getMarkUpPrice(){
                 var markup = $('#mark_up').val();
@@ -475,6 +503,19 @@
 
                 $('.margin').val(margin.toFixed(1))
             }
+            $(document).ready(function(){
+                $('#supplier').change(function(){
+                var supplier_link = $(this).children('option:selected').data('link');
+                    cleanInput = supplier_link.replace('www.', '');
+                    cleanInput = cleanInput.replace('http://', '');
+                    cleanInput = cleanInput.replace('https://', '');
+                    
+                    $('.supplier_link').val(cleanInput);
+                    $("#supplier_anchor").attr("href",supplier_link);
+                    $('#supplier_anchor').removeClass('hidden');
+                });
+
+            });
             
 
     </script>

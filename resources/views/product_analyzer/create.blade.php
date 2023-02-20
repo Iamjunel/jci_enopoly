@@ -57,16 +57,26 @@
                                     <input type="text" class="form-control" id="category" name="category" placeholder="Enter Category" required>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="mb-3">
-                                    <label for="supplier">Supplier</label>
-                                    <input type="text" class="form-control" id="supplier" name="supplier" placeholder="Enter Supplier" required>
+                             <div class="col-lg-3 col-sm-6">
+                               <div class="mb-3">
+                                    <label class="col-md-6 ">Supplier</label>
+                                    <div class="col-md-12">
+                                        <select class="form-select" name="supplier" id="supplier">
+                                             <option disabled selected>Choose a supplier</option>
+                                            @foreach ($supplier as $sup )
+                                               
+                                                <option value="{{$sup->company_name}}"  data-link="{{$sup->website_link}}">{{$sup->company_name}}</option>
+                                            @endforeach
+                                    
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="mb-3">
-                                    <label for="supplier_link">Supplier Link</label>
-                                    <input type="text" class="form-control" id="supplier_link" name="supplier_link" placeholder="Enter Supplier Link" required>
+                                    <label for="supplier_link">Supplier Link <a href="" id="supplier_anchor" class="hidden" target="_blank"><i class="bx bx-link-external"></i></a></label>
+                                    <input type="text" class="supplier_link form-control" id="supplier_link"  name="supplier_link" value="" placeholder="Enter Supplier Link" required disabled>
+                                    <input type="hidden" class="supplier_link form-control"  name="supplier_link" value="">
                                 </div>
                             </div>
                             
@@ -269,6 +279,13 @@
                             
                                 </div>
                             </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="mb-3">
+                                    <label for="basicpill-lastname-input">Date Added</label>
+                                    <input type="date" class="form-control" id="basicpill-lastname-input" value="{{date('Y-m-d')}}" name="agent" placeholder="Enter the name of the agent" disabled>
+                            
+                                </div>
+                            </div>
                         </div>
 
                     </section>
@@ -321,6 +338,9 @@
                 var total = multipack * supplier_cost;
 
                 $('.final_supplier_cost').val(total.toFixed(2));
+
+                getTotalCost();
+                getMarkUpPrice();
             }
             function getMarkUpPrice(){
                 var markup = $('#mark_up').val();
@@ -365,6 +385,20 @@
 
                 $('.margin').val(margin.toFixed(1))
             }
+
+            $(document).ready(function(){
+                $('#supplier').change(function(){
+                var supplier_link = $(this).children('option:selected').data('link');
+                    cleanInput = supplier_link.replace('www.', '');
+                    cleanInput = cleanInput.replace('http://', '');
+                    cleanInput = cleanInput.replace('https://', '');
+                    
+                    $('.supplier_link').val(cleanInput);
+                    $("#supplier_anchor").attr("href",supplier_link);
+                    $('#supplier_anchor').removeClass('hidden');
+                });
+
+            });
             
         
         </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Supplier;
 class QAController extends Controller
 {
     /**
@@ -22,7 +23,8 @@ class QAController extends Controller
     {
         //
         $products = Product::with('user')->orderBy('id','desc')->get();
-        return view('qa.index',compact('products'));
+         $supplier = Supplier::where('status','=','Approved')->get();
+        return view('qa.index',compact('products','supplier'));
     }
     /**
      * Show the form for creating a new resource.
