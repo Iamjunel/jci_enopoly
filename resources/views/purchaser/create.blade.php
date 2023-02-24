@@ -56,8 +56,8 @@
                                     <label class="col-md-12 col-form-label">Status:</label>
                                     <div class="col-md-12">
                                         <select class="form-select" name="status">
-                                            <option value="Incomplete" {{$order->status == 'Pending'}}>Pending</option>
-                                            <option value="Completed" {{$order->status == 'Approved'}}>Approved</option>
+                                            <option value="Pending" {{$order->status == 'Pending'}}>Pending</option>
+                                            <option value="Approved" {{$order->status == 'Approved'}}>Approved</option>
                                         </select>
                                     </div>
                                 </div>
