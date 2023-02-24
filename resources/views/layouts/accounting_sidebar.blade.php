@@ -22,6 +22,31 @@
                         <span key="t-chat">Approved Client</span>
                     </a>
                  </li>
+                  <li>
+                    <a href="{{route('accounting.approve_po')}}" class="waves-effect">
+                        <i class="bx bx-package"></i>
+                        <span key="t-chat">Approved P.O.</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a href="{{route('accounting.pending_invoice')}}" class="waves-effect">
+                        <i class="bx bx-time-five"></i>
+                        <span key="t-chat">Pending Invoices</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a href="{{route('accounting.confirmed_invoice')}}" class="waves-effect">
+                        <i class="bx bx-receipt"></i>
+                        <span key="t-chat">Confirmed Invoices</span>
+                    </a>
+                 </li>
+                 <li class="menu-title" key="t-menu">Generated Reports</li>
+                 <li>
+                    <a href="{{route('accounting.clients_payments')}}" class="waves-effect">
+                        <i class="bx bxs-report"></i>
+                        <span key="t-chat">Clients Payments By Date</span>
+                    </a>
+                 </li>
             
                
 

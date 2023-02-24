@@ -83,8 +83,8 @@
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
-                                                                        <label for="basicpill-link-input">Website Link</label>
-                                                                        <input type="url" class="form-control" id="basicpill-link-input" name="website_link" placeholder="https://example.com">
+                                                                        <label for="website_link">Website Link</label>
+                                                                        <input type="url" class="form-control website_link" id="website_link" name="website_link" placeholder="https://example.com">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
@@ -266,8 +266,8 @@
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
-                                                                        <label for="basicpill-link-input">Website Link</label>
-                                                                        <input type="url" class="form-control" id="basicpill-link-input" name="website_link" value="{{$client->website_link}}" placeholder="http://example.com">
+                                                                        <label for="website_link">Website Link</label>
+                                                                        <input type="url" class="form-control" id="website_link"  name="website_link" value="{{$client->website_link}}" placeholder="example.com">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
@@ -373,5 +373,21 @@
     <script src="{{ URL::asset('/assets/libs/jquery-repeater/jquery-repeater.min.js') }}"></script>
 
     <script src="{{ URL::asset('/assets/js/pages/form-repeater.int.js') }}"></script>
-    
+    <script>
+        $(document).ready(function(){
+                $('#website_link').on("paste", function(e){   
+                var element = this;
+                setTimeout(function () {
+                    var text = $(element).val();
+                    cleanInput = text.replace('www.', '');
+                    cleanInput = cleanInput.replace('http://', '');
+                    cleanInput = cleanInput.replace('https://', '');
+                    
+                    $('#website_link').val(cleanInput);
+                }, 100);    
+                   
+                
+
+            });
+        </script>
 @endsection

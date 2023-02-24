@@ -99,4 +99,40 @@ class AccountingController extends Controller
         
 
     }
+    public function getApprovedPurchaseOrder()
+    {
+        //
+        
+        
+         $clients = Client::with('company','user','store_details','payment_details')->where('status','=','Completed')->get();
+         $companies = Company::all();
+         return view('accounting.approve_po',compact('clients','companies'));
+    }
+    public function getPendingInvoices()
+    {
+        //
+        
+        
+         $clients = Client::with('company','user','store_details','payment_details')->where('status','=','Completed')->get();
+         $companies = Company::all();
+         return view('accounting.pending_invoice',compact('clients','companies'));
+    }
+    public function getConfirmedInvoices()
+    {
+        //
+        
+        
+         $clients = Client::with('company','user','store_details','payment_details')->where('status','=','Completed')->get();
+         $companies = Company::all();
+         return view('accounting.confirmed_invoice',compact('clients','companies'));
+    }
+    public function getClientPaymentsByDate()
+    {
+        //
+        
+        
+         $clients = Client::with('company','user','store_details','payment_details')->where('status','=','Completed')->get();
+         $companies = Company::all();
+         return view('accounting.confirmed_invoice',compact('clients','companies'));
+    }
 }

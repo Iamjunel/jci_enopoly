@@ -14,7 +14,12 @@
     <style>
         .hidden{
             display: none;
-        }
+        },
+        @media print {
+               .noprint {
+                  display: none !important;
+               }
+            }
         </style>
 </head>
 

@@ -22,6 +22,18 @@
                         <span key="t-chat">Good To Order Products</span>
                     </a>
                  </li>
+                 <li>
+                    <a href="{{route('purchaser_product.pending_po')}}" class="waves-effect">
+                        <i class="bx bx-layer"></i>
+                        <span key="t-chat">Pending Purchase Order</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a href="{{route('purchaser_product.approved_po')}}" class="waves-effect">
+                        <i class="bx bx-layer"></i>
+                        <span key="t-chat">Approved Purchase Order</span>
+                    </a>
+                 </li>
                  
 
                 

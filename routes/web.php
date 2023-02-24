@@ -39,6 +39,11 @@ Route::prefix('admin')->group(function () {
 Route::group(['middleware' => ['accounting'], 'prefix' => 'accounting'], function (){    
     Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('accounting.dashboard');
     Route::get('client', [App\Http\Controllers\AccountingController::class, 'index'])->name('accounting.client.index');
+    Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('accounting.dashboard');
+    Route::get('approved_po', [App\Http\Controllers\AccountingController::class, 'getApprovedPurchaseOrder'])->name('accounting.approve_po');
+    Route::get('pending_invoice', [App\Http\Controllers\AccountingController::class, 'getPendingInvoices'])->name('accounting.pending_invoice');
+    Route::get('confirmed_invoice', [App\Http\Controllers\AccountingController::class, 'getConfirmedInvoices'])->name('accounting.confirmed_invoice');
+    Route::post('client-payments-with-date', [App\Http\Controllers\AccountingController::class, 'getClientPaymentsByDate'])->name('accounting.clients_payments');
     //Route::get('client/create', [App\Http\Controllers\ClientController::class, 'create'])->name('accounting.client.create');
     //Route::get('client/edit/{id}', [App\Http\Controllers\ClientController::class, 'edit'])->name('accounting.client.edit');
     Route::post('store', [App\Http\Controllers\AccountingController::class, 'store'])->name('accounting.client.store');
@@ -121,8 +126,16 @@ Route::group(['middleware' => ['qa'], 'prefix' => 'qa'], function (){
 });
 Route::group(['middleware' => ['purchaser'], 'prefix' => 'purchaser'], function (){    
     Route::get('dashboard', [App\Http\Controllers\PurchaserController::class, 'index'])->name('purchaser_dashboard');
-    Route::get('/', [App\Http\Controllers\PurchaserController::class, 'index'])->name('purchaser_product.index');
+    Route::get('/', [App\Http\Controllers\PurchaserController::class, 'index'])->name('purchaser_product.index');  
+    Route::get('pending_po', [App\Http\Controllers\PurchaserController::class, 'getPendingPurchaseOrder'])->name('purchaser_product.pending_po');   
+    Route::get('approved_po', [App\Http\Controllers\PurchaserController::class, 'getApprovedPurchasedOrder'])->name('purchaser_product.approved_po');
+    Route::get('pdf/{id}', [App\Http\Controllers\PurchaserController::class, 'getPOPdf'])->name('purchaser_product.pdf');   
+    Route::get('create', [App\Http\Controllers\PurchaserController::class, 'create'])->name('purchaser_product.create');
+    Route::get('edit/{id}', [App\Http\Controllers\PurchaserController::class, 'edit'])->name('purchaser_product.edit');
+    Route::post('store', [App\Http\Controllers\PurchaserController::class, 'store'])->name('purchaser_product.store');
+    Route::post('store_order_details', [App\Http\Controllers\PurchaserController::class, 'storeOrderDetails'])->name('purchaser_product.store_order_details');
     Route::post('update/{id}', [App\Http\Controllers\PurchaserController::class, 'update'])->name('purchaser_product.update');
+    Route::get('destroyItem/{id}', [App\Http\Controllers\PurchaserController::class, 'destroyItem'])->name('purchaser_product.destroyItem');
    // Route::post('client/update_dashboard/{id}', [App\Http\Controllers\ProductAnalyzerCorrController::class, 'update'])->name('client_dashboard.update');
 
 });
