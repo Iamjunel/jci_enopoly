@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title') Pending Purchased Orders @endsection
+@section('title') Approved Client Purchased Orders @endsection
 
 @section('css')
     <!-- DataTables -->
@@ -12,8 +12,8 @@
 @section('content')
 
     @component('components.breadcrumb')
-        @slot('li_1') Purchaser @endslot
-        @slot('title') Pending Purchased Orders @endslot
+        @slot('li_1') Client Corr @endslot
+        @slot('title') Approved Client Purchased Orders @endslot
     @endcomponent
 
     <div class="row">
@@ -27,13 +27,14 @@
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                         <thead>
                             <tr>
+                                <th>Date Created</th>
                                 <th>Purchase Order</th>
                                 <th>No. of Items</th>
                                 <th>Description</th>
                                 <th>Total</th>
                                 <th>Status</th>
                                 <th>Agent/Added by</th>
-                                <th>Date Created</th>
+                                
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -42,17 +43,18 @@
                         <tbody>
                             @foreach ($orders as $order)
                             <tr>
+                                <td>{{date('M d Y h:i:s a',strtotime($order->created_at))}}</td>
                                 <td>{{$order->purchase_order}}</td>
                                  <td>{{$order->item_count}}</td>
                                 <td>{{$order->description}}</td>
                                 <td>${{number_format($order->total,2)}}</td>
                                 <td>{{$order->status}}</td>
                                 <td>{{$order->user->name}}</td>
-                                <td>{{date('M d Y h:i:s a',strtotime($order->created_at))}}</td>
+                                
                                 <td> 
                                     
-                                    
-                                    <a id="view" href="pdf/{{$order->id}}" target="_blank" ><i class="bx bx-sm bxs-file-pdf mr-2"></i> </a> 
+                                    <a id="view" href="edit-order/{{$order->id}}" ><i class="bx bx-xs bx-edit mr-2"></i> </a> 
+                                    <a id="view" href="pdf/{{$order->id}}" target="_blank" ><i class="bx bx-xs bxs-file-pdf mr-2"></i> </a> 
                                    
                                  </td>
                                    

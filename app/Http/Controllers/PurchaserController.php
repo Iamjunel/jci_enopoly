@@ -59,7 +59,7 @@ class PurchaserController extends Controller
     {
         
          OrderDetails::create($request->post());
-       return redirect()->route('purchaser_product.create');
+       return redirect()->back();
     }
 
     /**
@@ -108,7 +108,7 @@ class PurchaserController extends Controller
             $order->update($request->post());
         }        
 
-        return redirect()->route('purchaser_product.pending_po')->with('success', 'Purchase Order has been created successfully.');
+        return redirect()->back()->with('success', 'Purchase Order Details has been updated successfully.');
     }
 
     /**

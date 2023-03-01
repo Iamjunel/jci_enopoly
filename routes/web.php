@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 //Auth::routes();
 
 //
+Route::get('/', function () {
+  return redirect('login');
+});
+
+
 Route::get('dashboard', [App\Http\Controllers\CustomAuthController::class, 'dashboard']);
 Route::get('login', [App\Http\Controllers\CustomAuthController::class, 'index'])->name('login');
 Route::post('custom-login', [App\Http\Controllers\CustomAuthController::class, 'customLogin'])->name('login.custom');
@@ -25,7 +30,7 @@ Route::post('custom-registration', [App\Http\Controllers\CustomAuthController::c
 Route::get('signout', [App\Http\Controllers\CustomAuthController::class, 'signOut'])->name('signout');
 
 
-Route::get('/', [App\Http\Controllers\CustomAuthController::class, 'index']);
+
 
 Route::prefix('admin')->group(function () {
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('admin.client.index');
@@ -75,6 +80,14 @@ Route::group(['middleware' => ['client_corr'], 'prefix' => 'client_corr'], funct
     Route::get('client/report', [App\Http\Controllers\ClientController::class, 'client_report'])->name('client_corr.client.report');
     Route::post('client/report-with-date', [App\Http\Controllers\ClientController::class, 'client_report_with_date'])->name('client_corr.client.report-with-date');
 
+
+    Route::get('pending_po', [App\Http\Controllers\ClientCorrController::class, 'getPendingPurchaseOrder'])->name('client_corr.pending_po');   
+    Route::get('approved_po', [App\Http\Controllers\ClientCorrController::class, 'getApprovedPurchasedOrder'])->name('client_corr.approved_po');
+    Route::get('pdf/{id}', [App\Http\Controllers\ClientCorrController::class, 'getPOPdf'])->name('client_corr.pdf');   
+    Route::get('edit-order/{id}', [App\Http\Controllers\ClientCorrController::class, 'editOrder'])->name('clients.edit');
+    Route::post('store_order_details', [App\Http\Controllers\ClientCorrController::class, 'storeOrderDetails'])->name('clients.store_order_details');
+    Route::post('update-order/{id}', [App\Http\Controllers\ClientCorrController::class, 'updateOrder'])->name('clients.update');
+    Route::get('destroyItem/{id}', [App\Http\Controllers\ClientCorrController::class, 'destroyItem'])->name('clients.destroyItem');
 });
 Route::group(['middleware' => ['sourcer'], 'prefix' => 'sourcer'], function (){
     Route::get('/', [App\Http\Controllers\SourcerController::class, 'index'])->name('sourcer.dashboard');

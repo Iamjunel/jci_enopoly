@@ -103,13 +103,14 @@
                     <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                         <thead>
                             <tr>
+                                <th>Date Created</th>
                                 <th>Purchase Order</th>
                                 <th>No. of Items</th>
                                 <th>Description</th>
                                 <th>Total</th>
                                 <th>Status</th>
                                 <th>Agent/Added by</th>
-                                <th>Date Created</th>
+                                
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -118,13 +119,14 @@
                         <tbody>
                             @foreach ($orders as $order)
                             <tr>
+                                 <td>{{date('M d Y h:i:s a',strtotime($order->created_at))}}</td>
                                 <td>{{$order->purchase_order}}</td>
                                  <td>{{$order->item_count}}</td>
                                 <td>{{$order->description}}</td>
                                 <td>${{number_format($order->total,2)}}</td>
                                 <td>{{$order->status}}</td>
                                 <td>{{$order->user->name}}</td>
-                                <td>{{date('M d Y h:i:s a',strtotime($order->created_at))}}</td>
+                               
                                 <td> 
                                     <a id="view" href="edit/{{$order->id}}" ><i class="bx bx-xs bx-edit mr-2"></i> </a> 
                                    

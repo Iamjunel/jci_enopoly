@@ -14,13 +14,14 @@
         @slot('li_1') Purchaser @endslot
         @slot('title') Create Purchase Order @endslot
     @endcomponent
+    
     <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <form class="repeater" action="update/{{$order->id}}"  method="POST">
+                <form class="repeater" action="../update-order/{{$order->id}}"  method="POST">
                     @csrf
-                    <section class="border-bottom py-2 d-flex justify-content-between">
+                    <section class="border-bottom py-5 d-flex justify-content-between">
                         <div class="col-6" >
                          <h4>Supplier Information</h4>
                          <p class="py-3">
@@ -56,14 +57,15 @@
                                     <label class="col-md-12 col-form-label">Status:</label>
                                     <div class="col-md-12">
                                         <select class="form-select" name="status">
-                                            <option value="Pending" {{$order->status == 'Pending'}}>Pending</option>
-                                            <option value="Approved" {{$order->status == 'Approved'}}>Approved</option>
+                                            <option value="Pending" {{($order->status == 'Pending')?'selected' : ''}}>Pending</option>
+                                            <option value="Approved" {{($order->status == 'Approved')?'selected' : ''}}>Approved</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                    
                         </div>
+                        
                         
                                                                              
                     </section>
@@ -93,8 +95,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $count = 0;
-                                    $total = 0;
+                                <?php
+                                $count = 0;
+                                $total = 0;
                                 ?>
                                 @foreach ($order_details as $or)
                                     <tr >
@@ -127,13 +130,17 @@
                    
                     
                     </section> 
-                    <input type="hidden" name="total" value="{{$total}}"/>
-                    <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
+                    
                     <div class="d-flex justify-content-end my-2">
-                    <a href="{{route('purchaser_product.pending_po')}}" class="btn btn-light px-4 mx-1" >Cancel</a>
-                    <button type="submit" name="add_client" class="btn btn-primary px-4 mx-1">Save Changes</button>
+                    
+                    <input type="hidden" name="total" value="{{$total}}"/>
+                        <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
+                        <div class="d-flex justify-content-end my-2">
+                        <a href="{{route('client_corr.pending_po')}}" class="btn btn-light px-4 mx-1" >Finish</a>
+                        <button type="submit" name="add_client" class="btn btn-primary px-4 mx-1">Save Changes</button>
+                        </div>
+                    </form>
                     </div>
-                </form>
                 <!-- Add Onboarding Client Modal -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog  modal-md" role="document">
@@ -146,7 +153,7 @@
                                         <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-body">
-                                                 <form action="store_order_details" method="POST">
+                                                 <form action="../store_order_details" method="POST">
                                                 <div id="basic-example">
                                                     <section>
                                                        
@@ -182,7 +189,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
+                                       <!-- <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/> -->
                                         <input type="hidden" name="order_id" value="{{$order->id}}"/>
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" name="add_supplier" class="btn btn-primary">Save</button>

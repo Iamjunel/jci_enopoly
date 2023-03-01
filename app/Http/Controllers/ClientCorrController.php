@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
 use App\Models\Company;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Supplier;
+use App\Models\OrderDetails;
 use App\Models\Announcement;
 use Carbon\Carbon;
 class ClientCorrController extends Controller
@@ -25,7 +29,8 @@ class ClientCorrController extends Controller
         $monthly_client_count      = $client->whereMonth('created_at', Carbon::now()->month)->count();
         $yearly_client_count       = $client->whereYear('created_at', Carbon::now()->year)->count();
         $clients_data              = $client->with('company','user')->where('status','=','Incomplete')->orderBy('created_at', 'desc')->get();
-
+        $purchased_total           = Order::with('supplier','user')->where('status','=','Approved')->get()->sum('total');
+        $pending_po                = Order::with('supplier','user')->where('status','=','Pending')->take(5)->orderBy('created_at', 'desc')->get();
         $client_array = array();
         $client_array["clients_data"] = $clients_data;
         $client_array["daily_client"] = $daily_client_count;
@@ -33,10 +38,12 @@ class ClientCorrController extends Controller
         $client_array["monthly_client"] = $monthly_client_count;
         $client_array["yearly_client"] = $yearly_client_count;
         $client_array["daily_client_user"] = $daily_client_count_user;
+         $client_array["purchased_total"] = $purchased_total;
+        
         
         $announcement = Announcement::with('user')->orderBy('id','desc')->take(50)->get();
 
-        return view('clients.client_dashboard', compact('client_array','announcement'));
+        return view('clients.client_dashboard', compact('client_array','announcement','pending_po'));
 
     }
 
@@ -111,5 +118,72 @@ class ClientCorrController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getPendingPurchaseOrder(){
+         $orders = Order::with('supplier','user')->where('status','=','Pending')->orderBy('id','desc')->get();
+         foreach($orders as $order){
+            $order_details = OrderDetails::with('product')->where('order_id','=',$order->id)->get();
+            $order["order_details"] = $order_details;
+            $order["item_count"] = $order_details->count();
+         }
+         
+         
+        return view('clients.pending_po',compact('orders'));
+    }
+    public function storeOrderDetails(Request $request)
+    {
+        
+         OrderDetails::create($request->post());
+       return redirect()->back();
+    }
+    public function editOrder($id)
+    {
+        //
+        $order = Order::with('supplier')->where('id','=',$id)->first();
+        $order_details=OrderDetails::with('product')->where('order_id','=',$order->id)->get();
+        $products = Product::with('user')->where('qa_status','=','Good To Order')->orderBy('id','desc')->get();
+        $products = $products->map(function ($product) {
+            return ['id' => $product->id, 'text' => $product->asin.'-'.$product->amazon_title];
+        })->toArray();
+        
+        return view('clients.update',compact('order','products','order_details'));
+    }
+    public function getApprovedPurchasedOrder(){
+         $orders = Order::with('supplier','user')->where('status','=','Approved')->orderBy('id','desc')->get();
+         foreach($orders as $order){
+            $order_details = OrderDetails::with('product')->where('order_id','=',$order->id)->get();
+            $order["order_details"] = $order_details;
+            $order["item_count"] = $order_details->count();
+         }
+         
+         
+        return view('clients.approved_po',compact('orders'));
+    }
+    public function getPOPdf($id){
+         $order = Order::with('supplier')->where('id','=',$id)->first();
+        $order_details=OrderDetails::with('product')->where('order_id','=',$order->id)->get();
+        
+        
+        return view('clients.pdf',compact('order','order_details'));
+        
+    }
+    public function destroyItem($id)
+    {
+        //
+        $order_details = OrderDetails::find($id);
+        $order_details->delete();
+        return redirect()->route('purchaser_product.create');
+    }
+     public function updateOrder(Request $request, $id)
+    {
+        //
+        $order = Order::where('id',$id)->first();
+        
+        if(!empty($order)){
+            $order->update($request->post());
+        }        
+
+        return redirect()->back()->with('success', 'Purchase Order Details has been updated successfully.');
     }
 }

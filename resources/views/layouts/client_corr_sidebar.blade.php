@@ -29,9 +29,15 @@
                     </a>
                  </li>
                  <li>
-                    <a href="#" class="waves-effect">
+                    <a href="{{route('client_corr.pending_po')}}" class="waves-effect">
                         <i class="bx bx-calculator"></i>
-                        <span key="t-chat">Client Pending Invoice</span>
+                        <span key="t-chat">Client Pending PO</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a href="{{route('client_corr.approved_po')}}" class="waves-effect">
+                        <i class="bx bx-calculator"></i>
+                        <span key="t-chat">Client Approved PO</span>
                     </a>
                  </li>
                  <li class="menu-title" key="t-menu">Generated Reports</li>

@@ -56,8 +56,8 @@
                                     <label class="col-md-12 col-form-label">Status:</label>
                                     <div class="col-md-12">
                                         <select class="form-select" name="status">
-                                            <option value="Pending" {{$order->status == 'Pending'}}>Pending</option>
-                                            <option value="Approved" {{$order->status == 'Approved'}}>Approved</option>
+                                            <option value="Pending" {{($order->status == 'Pending')?'selected' : ''}}>Pending</option>
+                                            <option value="Approved" {{($order->status == 'Approved')?'selected' : ''}}>Approved</option>
                                         </select>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                     <input type="hidden" name="total" value="{{$total}}"/>
                     <input type="hidden" name="added_by" value="{{Auth::user()->id}}"/>
                     <div class="d-flex justify-content-end my-2">
-                    <a href="{{route('purchaser_product.pending_po')}}" class="btn btn-light px-4 mx-1" >Cancel</a>
+                    <a href="{{route('purchaser_product.pending_po')}}" class="btn btn-light px-4 mx-1" >Finish</a>
                     <button type="submit" name="add_client" class="btn btn-primary px-4 mx-1">Save</button>
                     </div>
                 </form>
@@ -146,7 +146,7 @@
                                         <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-body">
-                                                 <form action="store_order_details" method="POST">
+                                                 <form action="../store_order_details" method="POST">
                                                 <div id="basic-example">
                                                     <section>
                                                        
