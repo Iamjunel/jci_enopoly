@@ -64,7 +64,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Total Approved Purchased Order </h4>
+                <h4 class="card-title mb-4">Weekly Total Approved Purchased Order</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         <!--<p class="text-muted">This month</p> -->
@@ -477,7 +477,10 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Latest Client Invoice Pending Transaction(In-Progress)</h4>
+                <div class="d-flex justify-content-between">
+                <h4 class="card-title mb-4">Latest 5 Client Pending PO Transaction</h4>
+                <a href="client_corr/pending_po" class="btn btn-primary waves-effect waves-light btn-sm mb-4">View All <i class="mdi mdi-arrow-right ms-1"></i></a>
+                </div>
                 <div class="table-responsive" style="max-height:400px;overflow-y:auto">
                     <table class="table align-middle table-nowrap mb-0">
                         <thead>

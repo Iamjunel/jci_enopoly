@@ -23,7 +23,7 @@
                     </a>
                  </li>
                   <li>
-                    <a href="{{route('accounting.approve_po')}}" class="waves-effect">
+                    <a href="{{route('accounting.approved_po')}}" class="waves-effect">
                         <i class="bx bx-package"></i>
                         <span key="t-chat">Approved P.O.</span>
                     </a>

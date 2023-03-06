@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\OrderDetails;
 use App\Models\Announcement;
+use App\Models\StoreDetail;
 use Carbon\Carbon;
 class ClientCorrController extends Controller
 {
@@ -29,7 +30,7 @@ class ClientCorrController extends Controller
         $monthly_client_count      = $client->whereMonth('created_at', Carbon::now()->month)->count();
         $yearly_client_count       = $client->whereYear('created_at', Carbon::now()->year)->count();
         $clients_data              = $client->with('company','user')->where('status','=','Incomplete')->orderBy('created_at', 'desc')->get();
-        $purchased_total           = Order::with('supplier','user')->where('status','=','Approved')->get()->sum('total');
+        $purchased_total           = Order::with('supplier','user')->whereBetween('updated_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->where('status','=','Approved')->get()->sum('total');
         $pending_po                = Order::with('supplier','user')->where('status','=','Pending')->take(5)->orderBy('created_at', 'desc')->get();
         $client_array = array();
         $client_array["clients_data"] = $clients_data;
@@ -142,17 +143,19 @@ class ClientCorrController extends Controller
         //
         $order = Order::with('supplier')->where('id','=',$id)->first();
         $order_details=OrderDetails::with('product')->where('order_id','=',$order->id)->get();
-        $products = Product::with('user')->where('qa_status','=','Good To Order')->orderBy('id','desc')->get();
-        $products = $products->map(function ($product) {
-            return ['id' => $product->id, 'text' => $product->asin.'-'.$product->amazon_title];
+        $stores = StoreDetail::with('client')->orderBy('id','desc')->get();
+
+        $products = $stores->map(function ($product) {
+            return ['id' => $product->id, 'text' => $product->platform.' - '.$product->name.' -('.$product->client->lastname.', '.$product->client->firstname.')'];
         })->toArray();
         
-        return view('clients.update',compact('order','products','order_details'));
+        return view('clients.update',compact('order','products','order_details','stores'));
     }
     public function getApprovedPurchasedOrder(){
-         $orders = Order::with('supplier','user')->where('status','=','Approved')->orderBy('id','desc')->get();
+         $orders = Order::with('supplier','approved')->where('status','=','Approved')->orderBy('id','desc')->get();
          foreach($orders as $order){
             $order_details = OrderDetails::with('product')->where('order_id','=',$order->id)->get();
+            
             $order["order_details"] = $order_details;
             $order["item_count"] = $order_details->count();
          }
@@ -161,9 +164,11 @@ class ClientCorrController extends Controller
         return view('clients.approved_po',compact('orders'));
     }
     public function getPOPdf($id){
-         $order = Order::with('supplier')->where('id','=',$id)->first();
+         $order = Order::with('supplier','store')->where('id','=',$id)->first();
         $order_details=OrderDetails::with('product')->where('order_id','=',$order->id)->get();
-        
+        if($order->store){
+                 $order["client"]= Client::where('id','=',$order->store->id)->first();
+            }
         
         return view('clients.pdf',compact('order','order_details'));
         
@@ -176,12 +181,17 @@ class ClientCorrController extends Controller
         return redirect()->route('purchaser_product.create');
     }
      public function updateOrder(Request $request, $id)
-    {
-        //
+    {   
         $order = Order::where('id',$id)->first();
         
         if(!empty($order)){
-            $order->update($request->post());
+            $data = $request->post();
+            //if($request->post('status')== 'Approved'){
+           //     $data["approved_by"] = Auth::user()->id;
+            //}else{
+           //     unset($data["store_id"]);
+            //}
+            $order->update($data);
         }        
 
         return redirect()->back()->with('success', 'Purchase Order Details has been updated successfully.');

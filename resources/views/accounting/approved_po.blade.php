@@ -33,7 +33,7 @@
                                 <th>Description</th>
                                 <th>Total</th>
                                 
-                                <th>Approved By</th>
+                                <th>Approved by</th>
                                 
                                 <th>Actions</th>
                             </tr>
@@ -48,12 +48,12 @@
                                  <td>{{$order->item_count}}</td>
                                 <td>{{$order->description}}</td>
                                 <td>${{number_format($order->total,2)}}</td>
-                                
+                               
                                 <td>{{(isset($order->approved))? $order->approved->name : ''}}</td>
                                 
                                 <td> 
                                     
-                                    <a id="view" href="edit-order/{{$order->id}}" ><i class="bx bx-xs bx-edit mr-2"></i> </a> 
+                                    <a id="view" title="create invoice" href="edit-order/{{$order->id}}" ><i class="bx bx-xs bx-detail mr-2"></i> </a> 
                                     <a id="view" href="pdf/{{$order->id}}" target="_blank" ><i class="bx bx-xs bxs-file-pdf mr-2"></i> </a> 
                                    
                                  </td>

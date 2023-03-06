@@ -19,11 +19,9 @@
                     <section class="border-bottom py-2 d-flex justify-content-between">
                         
                         <div class="col-6" >
-                         
-                         @if(!isset($order->client))   
+                            
                          <h5>Supplier Information</h5>
                          <p class="">
-                            
                             <b>{{$order->supplier->asin}}</b><br/>
                             <b>{{$order->supplier->company_name}}</b><br/>
                             {{$order->supplier->email}}<br/>
@@ -31,25 +29,16 @@
                             {{$order->supplier->website_link}}
 
                          </p>
-                         @else
-                            <h5>Store Information</h5>
-                         <p class="">
-                            
-                            <b>{{$order->store->platform}}</b><br/>
-                            <b>{{$order->store->name}}</b><br/>
-                            {{$order->client->firstname}} {{$order->client->lastname}}<br/>
-                            {{$order->supplier->email}}<br/>
-                            {{$order->supplier->phone}}
-
-                         </p>
-                         @endif
                         </div>
                         <div class="col-2 text-right"> 
                             
                          <h5>Order Details</h5>
                          <b>P.O # : {{$order->purchase_order}}</b><br/>
                          <b>Date Created : {{date('M d Y ',strtotime($order->created_at))}}</b><br/>
-                        
+                         @if($order->description)
+                         Notes:
+                         <p>{{$order->description}}</p>
+                         @endif
                             
                    
                         </div>

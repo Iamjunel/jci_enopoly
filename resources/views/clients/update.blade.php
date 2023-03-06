@@ -31,6 +31,22 @@
                             {{$order->supplier->phone}}<br/>
                             {{$order->supplier->website_link}}
                          </p>
+                         <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3 col-md-12">
+                                    <label class="form-label">Choose Client <br> (Platform - Store Name - Client Name)</label>
+                                    <select id="lang" class="form-select " name="store_id">
+                                        <option disabled selected></option>
+                                        @foreach ($stores as $store )
+                                             <option value="{{$store->id}}" {{($order->store_id == $store->id)? 'selected' : ''}}>{{$store->platform}} - {{$store->name}} -({{$store->client->lastname}}, {{$store->client->firstname}}) </option>
+                                        @endforeach
+                                       
+                                            
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                       
                         </div>
                         <div class="col-6"> 
                             <h4>Order Details</h4>
@@ -217,19 +233,20 @@
     $(document).ready(function() {
         var options = {!! json_encode(array_values($products)) !!};
        
-        $(".products").empty().select2({
+       /* $(".products").empty().select2({
             data: options
             
             
         }); 
         
         $(".products").select2({
-            width:'100%',
-            dropdownParent: $('#staticBackdrop .modal-content')
+            width:'100%'
         });
+        */
+        $("#lang").select2();
     });
     
-        
+     
      </script>
     <script src="{{ URL::asset('/assets/js/pages/form-repeater.int.js') }}"></script>
     
