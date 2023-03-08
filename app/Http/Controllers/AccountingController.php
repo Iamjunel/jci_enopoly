@@ -176,7 +176,7 @@ class AccountingController extends Controller
             $data1 = array('status'=>'Invoice Created');
             $order->update($data1);
 
-            $data=array('order_id' => $id);
+            $data=array('order_id' => $id,'added_by'=> Auth::user()->id);
             Invoice::create($data);
             $invoice = Invoice::latest()->first();
 
