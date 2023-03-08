@@ -47,8 +47,8 @@
                                     <td>{{$inv->shipping_address}}</td>
                                     <td>{{date('M d Y h:i:s a',strtotime($inv->invoice_date))}}</td>
                                     <td>{{date('M d Y h:i:s a',strtotime($inv->payment_due))}}</td>
-                                    <td>{{$inv->store->name}}</td>
-                                    <td>{{$inv->client->firstname}} {{$inv->client->lastname}}</td>
+                                    <td>{{(isset($inv->store))?$inv->store->name : ''}}</td>
+                                    <td>{{(isset($inv->client))?$inv->client->firstname : ''}} {{$inv->client->lastname}}</td>
                                      <td>{{$inv->user->name}}</td>
                                      <td><a id="view" title="edit invoice" href="edit-invoice/{{$inv->order_id}}" ><i class="bx bx-xs bx-detail mr-2"></i> </a> </td>
                                 </tr>
