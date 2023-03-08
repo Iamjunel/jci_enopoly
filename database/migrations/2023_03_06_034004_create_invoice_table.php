@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('invoice', function (Blueprint $table) {
             $table->id();
             $table->integer('order_id');
-            $table->string('invoice_number');
-            $table->text('billing_address');
-            $table->text('shipping_address');
+            $table->string('invoice_number')->nullable();
+            $table->text('billing_address')->nullable();
+            $table->text('shipping_address')->nullable();
             $table->float('total',10,2)->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

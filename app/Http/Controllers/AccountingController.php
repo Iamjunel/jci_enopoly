@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Invoice;
+use App\Models\InvoiceCharge;
+use App\Models\InvoiceMerchantFee;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\StoreDetail;
@@ -106,19 +109,31 @@ class AccountingController extends Controller
     {
         //
         
+        $invoice = Invoice::with('user')->where('status',null)->get();
+        foreach($invoice as $key => $inv){
+          $order = Order::with('store')->where('id','=',$inv->order_id)->first();
+        if($order->store){
+                 $invoice[$key]["store"]= $order->store;
+                 $invoice[$key]["client"]= Client::where('id','=',$order->store->id)->first();
+            }
+        }
         
-         $clients = Client::with('company','user','store_details','payment_details')->where('status','=','Completed')->get();
-         $companies = Company::all();
-         return view('accounting.pending_invoice',compact('clients','companies'));
+         return view('accounting.pending_invoice',compact('invoice'));
     }
     public function getConfirmedInvoices()
     {
         //
         
         
-         $clients = Client::with('company','user','store_details','payment_details')->where('status','=','Completed')->get();
-         $companies = Company::all();
-         return view('accounting.confirmed_invoice',compact('clients','companies'));
+        $invoice = Invoice::with('user')->where('status','Confirmed')->get();
+        foreach($invoice as $key => $inv){
+          $order = Order::with('store')->where('id','=',$inv->order_id)->first();
+        if($order->store){
+                 $invoice[$key]["store"]= $order->store;
+                 $invoice[$key]["client"]= Client::where('id','=',$order->store->id)->first();
+            }
+        }
+         return view('accounting.confirmed_invoice',compact('invoice'));
     }
     public function getClientPaymentsByDate()
     {
@@ -151,23 +166,44 @@ class AccountingController extends Controller
         return view('accounting.pdf',compact('order','order_details'));
         
     }
-    public function editOrder($id)
+    public function editInvoice($id)
     {
-        //
-        $order = Order::with('supplier')->where('id','=',$id)->first();
-        $order_details=OrderDetails::with('product')->where('order_id','=',$order->id)->get();
-        $stores = StoreDetail::with('client')->orderBy('id','desc')->get();
+         $order = Order::where('id',$id)->first();
+        $invoice = Invoice::where('order_id',$id)->first();
+       
+        if(empty($invoice)){
+            
+            $data1 = array('status'=>'Invoice Created');
+            $order->update($data1);
 
-        $products = $stores->map(function ($product) {
+            $data=array('order_id' => $id);
+            Invoice::create($data);
+            $invoice = Invoice::latest()->first();
+
+            
+        }        
+
+        $order = Order::with('store')->where('id','=',$invoice->order_id)->first();
+        $order_details=OrderDetails::with('product')->where('order_id','=',$invoice->order_id)->get();
+        if($order->store){
+                 $order["client"]= Client::where('id','=',$order->store->id)->first();
+            }
+
+        $invoice_charge = InvoiceCharge::where('invoice_id',$invoice->id)->get();
+        $invoice_fee = InvoiceMerchantFee::where('invoice_id',$invoice->id)->get();
+        //$stores = StoreDetail::with('client')->orderBy('id','desc')->get();
+
+       /* $products = $stores->map(function ($product) {
             return ['id' => $product->id, 'text' => $product->platform.' - '.$product->name.' -('.$product->client->lastname.', '.$product->client->firstname.')'];
         })->toArray();
-        
-        return view('accounting.update',compact('order','products','order_details','stores'));
+        */
+        return view('accounting.update',compact('order','order_details','invoice','invoice_charge','invoice_fee'));
     }
 
    
      public function updateOrder(Request $request, $id)
     {   
+       
         $order = Order::where('id',$id)->first();
         
         if(!empty($order)){
@@ -182,6 +218,61 @@ class AccountingController extends Controller
 
         return redirect()->back()->with('success', 'Purchase Order Details has been updated successfully.');
     }
+    public function updateInvoice(Request $request, $id)
+    {   
+       
+        $invoice = Invoice::where('id',$id)->first();
+          $data = $request->post();
+        /*if(!empty($invoice)){
+          
+            if($request->post('status')== 'Approved'){
+                $data["approved_by"] = Auth::user()->id;
+            }else{
+                unset($data["store_id"]);
+            }
+            $invoice->update($data);
+        } */       
+        $invoice->update($data);
+        return redirect()->back()->with('success', 'Invoice Details has been updated successfully.');
+    }
 
+
+    //charge
+     public function storeCharge(Request $request)
+    {
+        //
+        InvoiceCharge::create($request->post());
+
+        return redirect()->back();
+    }
+    public function destroyCharge($id)
+    {
+
+            $company = InvoiceCharge::find($id);
+            $company->delete();
+
+            return redirect()->back();
+        
+
+    }
+    //merchant fees
+     public function storeFee(Request $request)
+    {
+        //
+        InvoiceMerchantFee::create($request->post());
+
+        return redirect()->back();
+    }
+    public function destroyFee($id)
+    {
+
+            $company = InvoiceMerchantFee::find($id);
+            $company->delete();
+
+            return redirect()->back();
+        
+
+    }
+    
 
 }

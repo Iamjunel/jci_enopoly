@@ -28,7 +28,7 @@ return new class extends Migration
     {
         //
          Schema::table('orders_details', function($table) {
-            $table->dropColumn('new_price');
+            $table->dropColumn('price');
         });
     }
 };

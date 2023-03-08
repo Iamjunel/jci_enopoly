@@ -12,7 +12,7 @@
 @section('content')
 
     @component('components.breadcrumb')
-        @slot('li_1') Client Corr @endslot
+        @slot('li_1') Accounting @endslot
         @slot('title') Approved Client Purchased Orders @endslot
     @endcomponent
 
@@ -53,7 +53,7 @@
                                 
                                 <td> 
                                     
-                                    <a id="view" title="create invoice" href="edit-order/{{$order->id}}" ><i class="bx bx-xs bx-detail mr-2"></i> </a> 
+                                    <a id="view" title="create invoice" href="edit-invoice/{{$order->id}}" ><i class="bx bx-xs bx-detail mr-2"></i> </a> 
                                     <a id="view" href="pdf/{{$order->id}}" target="_blank" ><i class="bx bx-xs bxs-file-pdf mr-2"></i> </a> 
                                    
                                  </td>

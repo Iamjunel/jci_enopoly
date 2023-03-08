@@ -55,6 +55,7 @@ Route::group(['middleware' => ['accounting'], 'prefix' => 'accounting'], functio
    // Route::post('client/update/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('accounting.client.update');
     Route::post('destroy/{id}', [App\Http\Controllers\AccountingController::class, 'destroy'])->name('accounting.client_dashboard.destroy');
     
+    
 
     Route::get('company', [App\Http\Controllers\CompanyController::class, 'index'])->name('accounting.company.index');
     Route::post('company/store', [App\Http\Controllers\CompanyController::class, 'store'])->name('accounting.company.store');
@@ -67,7 +68,15 @@ Route::group(['middleware' => ['accounting'], 'prefix' => 'accounting'], functio
     Route::get('approved_po', [App\Http\Controllers\AccountingController::class, 'getApprovedPurchasedOrder'])->name('accounting.approved_po');
     Route::get('pdf/{id}', [App\Http\Controllers\AccountingController::class, 'getPOPdf'])->name('accounting.pdf');   
     Route::post('update-order/{id}', [App\Http\Controllers\AccountingController::class, 'updateOrder'])->name('accounting.update');
-    Route::get('edit-order/{id}', [App\Http\Controllers\AccountingController::class, 'editOrder'])->name('accounting.edit');
+    Route::get('edit-invoice/{id}', [App\Http\Controllers\AccountingController::class, 'editInvoice'])->name('accounting.edit');
+
+    Route::post('store-charge', [App\Http\Controllers\AccountingController::class, 'storeCharge'])->name('accounting.store_charge');
+    Route::get('destroy-charge/{id}', [App\Http\Controllers\AccountingController::class, 'destroyCharge'])->name('accounting.destroy-charge');
+
+    Route::post('store-fee', [App\Http\Controllers\AccountingController::class, 'storeFee'])->name('accounting.store_fee');
+    Route::get('destroy-fee/{id}', [App\Http\Controllers\AccountingController::class, 'destroyFee'])->name('accounting.destroy-fee');
+    Route::post('update-invoice/{id}', [App\Http\Controllers\AccountingController::class, 'updateInvoice'])->name('accounting.update');
+
 });
 Route::group(['middleware' => ['client_corr'], 'prefix' => 'client_corr'], function (){    
     Route::get('/', [App\Http\Controllers\ClientCorrController::class, 'index'])->name('client_corr.dashboard');
