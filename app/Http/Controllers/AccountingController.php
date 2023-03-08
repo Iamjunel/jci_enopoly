@@ -12,6 +12,7 @@ use App\Models\OrderDetails;
 use App\Models\StoreDetail;
 use App\Models\PaymentDetail;
 use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
 class AccountingController extends Controller
 {
     /**
