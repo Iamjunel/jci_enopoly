@@ -321,7 +321,7 @@
                                                                 <div class="col-lg-12">
                                                                     <div class="mb-3">
                                                                         <label for="basicpill-link-input">Percentage(%)</label>
-                                                                         <input type="number" class="form-control" name="percentage" value="1"/>
+                                                                         <input type="number" class="form-control" name="percentage" value="1" step=".01"/>
                                                                     </div>
                                                                 </div>
                                                                 
