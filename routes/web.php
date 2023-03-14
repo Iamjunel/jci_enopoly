@@ -76,6 +76,7 @@ Route::group(['middleware' => ['accounting'], 'prefix' => 'accounting'], functio
     Route::post('store-fee', [App\Http\Controllers\AccountingController::class, 'storeFee'])->name('accounting.store_fee');
     Route::get('destroy-fee/{id}', [App\Http\Controllers\AccountingController::class, 'destroyFee'])->name('accounting.destroy-fee');
     Route::post('update-invoice/{id}', [App\Http\Controllers\AccountingController::class, 'updateInvoice'])->name('accounting.update');
+    Route::get('invoice_pdf/{id}', [App\Http\Controllers\AccountingController::class, 'getInvoicePdf'])->name('accounting.invoice_pdf');   
 
 });
 Route::group(['middleware' => ['client_corr'], 'prefix' => 'client_corr'], function (){    

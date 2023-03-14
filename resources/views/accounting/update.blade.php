@@ -191,9 +191,13 @@
                          <p class="py-3">
                             <b>{{$order->store->platform}}</b><br/>
                             <b>{{$order->store->name}}</b><br/>
+                            @if($order->client)
                             {{$order->client->firstname}} {{$order->client->lastname}}<br/>
+                            @endif
+                            @if($order->supplier)
                             {{$order->supplier->email}}<br/>
                             {{$order->supplier->phone}}
+                            @endif
                          </p>
                          @endif
                         

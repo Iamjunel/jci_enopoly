@@ -167,6 +167,26 @@ class AccountingController extends Controller
         return view('accounting.pdf',compact('order','order_details'));
         
     }
+    public function getInvoicePdf($id){
+
+        $invoice = Invoice::where('order_id',$id)->first();
+     
+        $order = Order::with('store')->where('id','=',$invoice->order_id)->first();
+        $order_details=OrderDetails::with('product')->where('order_id','=',$invoice->order_id)->get();
+
+        $order = Order::with('store')->where('id','=',$invoice->order_id)->first();
+        $order_details=OrderDetails::with('product')->where('order_id','=',$invoice->order_id)->get();
+        if($order->store){
+                 $order["client"]= Client::where('id','=',$order->store->id)->first();
+            }
+
+        $invoice_charge = InvoiceCharge::where('invoice_id',$invoice->id)->get();
+        $invoice_fee = InvoiceMerchantFee::where('invoice_id',$invoice->id)->get();
+        
+        return view('accounting.invoice_pdf',compact('order','order_details','invoice','invoice_charge','invoice_fee'));
+        
+        
+    }
     public function editInvoice($id)
     {
          $order = Order::where('id',$id)->first();

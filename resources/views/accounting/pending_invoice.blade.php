@@ -50,7 +50,8 @@
                                     <td>{{(isset($inv->store))?$inv->store->name : ''}}</td>
                                     <td>{{(isset($inv->client))?$inv->client->firstname : ''}} {{(isset($inv->client))?$inv->client->lastname : ''}}</td>
                                      <td>{{$inv->user->name}}</td>
-                                     <td><a id="view" title="edit invoice" href="edit-invoice/{{$inv->order_id}}" ><i class="bx bx-xs bx-detail mr-2"></i> </a> </td>
+                                     <td><a id="view" title="edit invoice" href="edit-invoice/{{$inv->order_id}}" ><i class="bx bx-xs bx-detail mr-2"></i> </a>
+                                    <a id="view" href="invoice_pdf/{{$inv->order_id}}" target="_blank" ><i class="bx bx-xs bxs-file-pdf mr-2"></i> </a> </td>
                                 </tr>
                             @endforeach
                             

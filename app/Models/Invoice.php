@@ -11,7 +11,7 @@ class Invoice extends Model
 
     protected $table = 'invoice';
 
-    protected $fillable = ['order_id','invoice_number','billing_address','shipping_address','total','status','discount','added_by','notes'];
+    protected $fillable = ['order_id','invoice_number','billing_address','shipping_address','total','status','discount','added_by','notes','invoice_date','payment_due'];
 
 
     public function user()
